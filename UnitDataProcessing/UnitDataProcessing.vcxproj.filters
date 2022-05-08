@@ -13,10 +13,69 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Criterias">
+      <UniqueIdentifier>{a4163d63-26ca-4d4e-9616-8ff4852bb788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TerritorialUnits">
+      <UniqueIdentifier>{d3941f66-9285-49e3-8632-e6e2c2a9cd60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Filters">
+      <UniqueIdentifier>{a784d38f-8ca7-4568-bfd8-b5d2c3f4d6da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SelectionCriterias">
+      <UniqueIdentifier>{805cea70-28c5-4afc-b7e1-ad423e812ae0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UnitDataProcessing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Criteria.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="CriteriaTerritorialUnit.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="CriteriaTerritorialUnitEducationCount.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="CriteriaTerritorialUnitEducationPortion.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="District.h">
+      <Filter>Header Files\TerritorialUnits</Filter>
+    </ClInclude>
+    <ClInclude Include="Region.h">
+      <Filter>Header Files\TerritorialUnits</Filter>
+    </ClInclude>
+    <ClInclude Include="TerritorialUnit.h">
+      <Filter>Header Files\TerritorialUnits</Filter>
+    </ClInclude>
+    <ClInclude Include="Town.h">
+      <Filter>Header Files\TerritorialUnits</Filter>
+    </ClInclude>
+    <ClInclude Include="CriteriaTerritorialUnitName.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="CriteriaTerritorialUnitType.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterWithCriteria.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_Range.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_Type.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionCriteria.h">
+      <Filter>Header Files\SelectionCriterias</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

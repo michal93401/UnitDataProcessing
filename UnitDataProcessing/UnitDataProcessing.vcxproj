@@ -141,6 +141,23 @@
   <ItemGroup>
     <ClCompile Include="UnitDataProcessing.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Criteria.h" />
+    <ClInclude Include="CriteriaTerritorialUnit.h" />
+    <ClInclude Include="CriteriaTerritorialUnitEducationCount.h" />
+    <ClInclude Include="CriteriaTerritorialUnitEducationPortion.h" />
+    <ClInclude Include="CriteriaTerritorialUnitName.h" />
+    <ClInclude Include="CriteriaTerritorialUnitType.h" />
+    <ClInclude Include="District.h" />
+    <ClInclude Include="Filter.h" />
+    <ClInclude Include="FilterWithCriteria.h" />
+    <ClInclude Include="Filter_Range.h" />
+    <ClInclude Include="Filter_Type.h" />
+    <ClInclude Include="Region.h" />
+    <ClInclude Include="SelectionCriteria.h" />
+    <ClInclude Include="TerritorialUnit.h" />
+    <ClInclude Include="Town.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
