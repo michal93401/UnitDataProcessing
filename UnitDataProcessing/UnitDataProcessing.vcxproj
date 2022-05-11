@@ -139,24 +139,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\AUS_VS2022\structures\structure.cpp" />
+    <ClCompile Include="..\..\..\AUS_VS2022\structures\utils.cpp" />
     <ClCompile Include="UnitDataProcessing.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\array\array.h" />
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\data_item.h" />
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure.h" />
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure_iterator.h" />
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sequence_table.h" />
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sorted_sequence_table.h" />
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\table.h" />
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\utils.h" />
+    <ClInclude Include="AgeGroup.h" />
     <ClInclude Include="Criteria.h" />
     <ClInclude Include="CriteriaTerritorialUnit.h" />
+    <ClInclude Include="CriteriaTerritorialUnitAffiliation.h" />
     <ClInclude Include="CriteriaTerritorialUnitEducationCount.h" />
     <ClInclude Include="CriteriaTerritorialUnitEducationPortion.h" />
     <ClInclude Include="CriteriaTerritorialUnitName.h" />
     <ClInclude Include="CriteriaTerritorialUnitType.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="District.h" />
+    <ClInclude Include="Education.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="FilterWithCriteria.h" />
     <ClInclude Include="Filter_Range.h" />
     <ClInclude Include="Filter_Type.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="SelectionCriteria.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="TerritorialUnit.h" />
     <ClInclude Include="Town.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

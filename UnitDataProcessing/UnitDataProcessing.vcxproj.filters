@@ -25,9 +25,18 @@
     <Filter Include="Header Files\SelectionCriterias">
       <UniqueIdentifier>{805cea70-28c5-4afc-b7e1-ad423e812ae0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Data">
+      <UniqueIdentifier>{708446be-53b3-4ae6-bedd-ac03f8d4e28c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UnitDataProcessing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AUS_VS2022\structures\utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\AUS_VS2022\structures\structure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,5 +86,47 @@
     <ClInclude Include="SelectionCriteria.h">
       <Filter>Header Files\SelectionCriterias</Filter>
     </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Education.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="AgeGroup.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Header Files\TerritorialUnits</Filter>
+    </ClInclude>
+    <ClInclude Include="CriteriaTerritorialUnitAffiliation.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\array\array.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sorted_sequence_table.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sequence_table.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\utils.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure_iterator.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\data_item.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\table.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

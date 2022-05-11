@@ -1,10 +1,8 @@
 #pragma once
 #include "TerritorialUnit.h"
 
-class Region : public TerritorialUnit
+class State : public TerritorialUnit
 {
 public:
-
-private:
-
+	State();
 };
