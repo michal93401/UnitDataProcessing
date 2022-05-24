@@ -139,20 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\AUS_VS2022\structures\structure.cpp" />
-    <ClCompile Include="..\..\..\AUS_VS2022\structures\utils.cpp" />
+    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="structure.cpp" />
     <ClCompile Include="UnitDataProcessing.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\array\array.h" />
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\data_item.h" />
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure.h" />
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure_iterator.h" />
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sequence_table.h" />
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sorted_sequence_table.h" />
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\table.h" />
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\utils.h" />
     <ClInclude Include="AgeGroup.h" />
+    <ClInclude Include="array.h" />
+    <ClInclude Include="array_list.h" />
     <ClInclude Include="Criteria.h" />
     <ClInclude Include="CriteriaTerritorialUnit.h" />
     <ClInclude Include="CriteriaTerritorialUnitAffiliation.h" />
@@ -161,17 +157,27 @@
     <ClInclude Include="CriteriaTerritorialUnitName.h" />
     <ClInclude Include="CriteriaTerritorialUnitType.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="data_item.h" />
     <ClInclude Include="District.h" />
     <ClInclude Include="Education.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="FilterWithCriteria.h" />
     <ClInclude Include="Filter_Range.h" />
     <ClInclude Include="Filter_Type.h" />
+    <ClInclude Include="list.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="SelectionCriteria.h" />
+    <ClInclude Include="sequence_table.h" />
+    <ClInclude Include="sorted_sequence_table.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="structure.h" />
+    <ClInclude Include="structure_iterator.h" />
+    <ClInclude Include="table.h" />
     <ClInclude Include="TerritorialUnit.h" />
     <ClInclude Include="Town.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

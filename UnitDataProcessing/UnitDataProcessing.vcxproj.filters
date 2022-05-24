@@ -33,10 +33,16 @@
     <ClCompile Include="UnitDataProcessing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\AUS_VS2022\structures\utils.cpp">
+    <ClCompile Include="Data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\AUS_VS2022\structures\structure.cpp">
+    <ClCompile Include="vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="structure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,28 +107,40 @@
     <ClInclude Include="CriteriaTerritorialUnitAffiliation.h">
       <Filter>Header Files\Criterias</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\array\array.h">
+    <ClInclude Include="array.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sorted_sequence_table.h">
+    <ClInclude Include="sequence_table.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\sequence_table.h">
+    <ClInclude Include="vector.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\utils.h">
+    <ClInclude Include="sorted_sequence_table.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure.h">
+    <ClInclude Include="structure_iterator.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\structure_iterator.h">
+    <ClInclude Include="structure.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\data_item.h">
+    <ClInclude Include="table.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\AUS_VS2022\structures\table\table.h">
+    <ClInclude Include="utils.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data_item.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="list.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="array_list.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,11 +1,15 @@
 ﻿// UnitDataProcessing.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
+#include "Data.h"
 #include <iostream>
+#include "heap_monitor.h"
 
 int main()
 {
+    initHeapMonitor();
     std::cout << "Hello World!\n";
+    Data* loader = new Data();
+    loader->loadData();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
