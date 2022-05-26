@@ -36,7 +36,7 @@ namespace structures
 		/// <exception cref="std::logic_error"> Vyhodena, ak tabulka uz obsahuje data s takymto klucom. </exception>
 		void insert(const K& key, const T& data) override;
 
-		TableItem<K, T>* at(int index);
+		TableItem<K, T>& at(int index);
 	protected:
 		/// <summary> Najde prvok tabulky s danym klucom. </summary>
 		/// <param name = "key"> Hladany kluc. </param>
@@ -92,12 +92,13 @@ namespace structures
 			SequenceTable<K, T>::list_->insert(new TableItem<K, T>(key, data), index);
 		}
 		else {
+			SequenceTable<K, T>::list_->insert(new TableItem<K, T>(key, data), index);
 			throw std::logic_error("Key already exists");
 		}
 	}
 
 	template<typename K, typename T>
-	inline TableItem<K, T>* SortedSequenceTable<K, T>::at(int index)
+	inline TableItem<K, T>& SortedSequenceTable<K, T>::at(int index)
 	{
 		return SequenceTable<K, T>::list_->at(index);
 	}

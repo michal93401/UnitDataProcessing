@@ -45,6 +45,12 @@
     <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerritorialUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Criteria.h">
@@ -95,12 +101,6 @@
     <ClInclude Include="Data.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="Education.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="AgeGroup.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Header Files\TerritorialUnits</Filter>
     </ClInclude>
@@ -141,6 +141,12 @@
       <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="array_list.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="unsorted_sequence_table.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitDataProcessing.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
   </ItemGroup>

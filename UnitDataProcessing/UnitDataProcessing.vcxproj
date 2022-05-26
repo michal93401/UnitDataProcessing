@@ -140,13 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="structure.cpp" />
+    <ClCompile Include="TerritorialUnit.cpp" />
     <ClCompile Include="UnitDataProcessing.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AgeGroup.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array_list.h" />
     <ClInclude Include="Criteria.h" />
@@ -159,7 +160,6 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="data_item.h" />
     <ClInclude Include="District.h" />
-    <ClInclude Include="Education.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="FilterWithCriteria.h" />
     <ClInclude Include="Filter_Range.h" />
@@ -176,6 +176,8 @@
     <ClInclude Include="TerritorialUnit.h" />
     <ClInclude Include="Town.h" />
     <ClInclude Include="types.h" />
+    <ClInclude Include="UnitDataProcessing.h" />
+    <ClInclude Include="unsorted_sequence_table.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
