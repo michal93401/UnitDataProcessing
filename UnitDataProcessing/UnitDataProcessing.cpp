@@ -41,6 +41,7 @@ void UnitDataProcessing::start()
 	while (run_)
 	{
 		data_->print();
+		run_ = false;
 	}
 
 }

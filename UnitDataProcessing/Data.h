@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <codecvt>
+#include "State.h"
 #include "Region.h"
 #include "District.h"
 #include "Town.h"
@@ -23,7 +24,7 @@ private:
 	bool loadEducation(std::string& message_p);
 	bool loadTerritorialUnits(const char* fileName_p, structures::ArrayList<std::wstring*>* titles, structures::ArrayList<std::wstring*>* codes);
 private:
-	TerritorialUnit* State_;
+	TerritorialUnit* State_ = new State();
 	structures::SortedSequenceTable<std::wstring, Region*>* regions_ = new structures::SortedSequenceTable<std::wstring, Region*>();
 	structures::SortedSequenceTable<std::wstring, District*>* districts_ = new structures::SortedSequenceTable<std::wstring, District*>();
 	structures::SortedSequenceTable<std::wstring, Town*>* towns_ = new structures::SortedSequenceTable<std::wstring, Town*>();

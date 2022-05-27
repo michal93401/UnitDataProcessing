@@ -1,12 +1,16 @@
 #pragma once
 #include "CriteriaTerritorialUnit.h"
+#include "types.h"
 #include <string>
 
 class CriteriaTerritorialUnitEducationCount : public CriteriaTerritorialUnit<int>
 {
 private:
-	std::string education_;
+	Education education_;
 public:
-	CriteriaTerritorialUnitEducationCount(std::string education);
-	int evaluate(const TerritorialUnit& unit);
+	CriteriaTerritorialUnitEducationCount(Education education) : education_(education)
+	{}
+	int evaluate(const TerritorialUnit& unit) {
+		return unit.;
+	};
 };

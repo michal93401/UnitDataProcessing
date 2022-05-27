@@ -13,11 +13,12 @@ Data::~Data()
 bool Data::loadData(std::string& message_p)
 {
 	if (loadTowns(message_p) &&
+		loadAgeGroups(message_p) &&
+		loadEducation(message_p) && 
 		loadDistricts(message_p) && 
 		loadRegions(message_p)) {
 		return true;
-		//loadAgeGroups(message_p) &&
-		//loadEducation(message_p) && 
+		
 	}
 	return false;
 }
@@ -96,9 +97,9 @@ bool Data::loadAgeGroups(std::string& message_p)
 	if (file.is_open()) {
 		file.imbue(std::locale(file.getloc(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::consume_header>));
 
-		int counter = 0;
+		//int counter = 0;
 		std::wstring searched = { L';' };
-		std::wstring help;
+		std::wstring code, title;
 		size_t index = 0;
 		int number = 0;
 		structures::Array<int> man(101);
@@ -107,10 +108,10 @@ bool Data::loadAgeGroups(std::string& message_p)
 		std::getline(file, row);
 		while (std::getline(file, row)) {
 			index = row.find(searched);
-			help = row.substr(0, index);
+			code = row.substr(0, index);
 			row.erase(0, index + searched.length());
 			index = row.find(searched);
-			help = row.substr(0, index);
+			title = row.substr(0, index);
 			row.erase(0, index + searched.length());
 			for (int i = 0; i < 101; i++) {
 				index = row.find(searched);
@@ -124,9 +125,24 @@ bool Data::loadAgeGroups(std::string& message_p)
 				woman[i] = number;
 				row.erase(0, index + searched.length());
 			}
-			//Town& town = dynamic_cast<Town&>(*towns->at(counter));
+
+			Town* town = nullptr;
+			if (towns_->tryFind(title, town)) {
+				if (town != nullptr && town->getCode() != code) {
+					for (auto item : *problemTowns_)
+					{
+						//town = item->accessData()->getCode() == code ? item->accessData() : nullptr;
+						town = nullptr;
+						if (item->accessData()->getCode() == code) {
+							town = item->accessData();
+							break;
+						}
+					}
+					town->saveAge(man, woman);
+				}
+			}
 			//town.saveThings(man, woman);
-			counter++;
+			//counter++;
 		}
 		return true;
 	}
@@ -145,7 +161,7 @@ bool Data::loadEducation(std::string& message_p)
 
 		int counter = 0;
 		std::wstring searched = { L';' };
-		std::wstring help;
+		std::wstring code, title;
 		size_t index = 0;
 		int number = 0;
 
@@ -158,15 +174,40 @@ bool Data::loadEducation(std::string& message_p)
 		row.erase(0, index + searched.length());*/
 		while (std::getline(file, row)) {
 			index = row.find(searched);
-			help = row.substr(0, index);
+			code = row.substr(0, index);
 			row.erase(0, index + searched.length());
 			index = row.find(searched);
-			help = row.substr(0, index);
+			title = row.substr(0, index);
 			row.erase(0, index + searched.length());
 
+			structures::UnsortedSequenceTable<Education, int>* education = new structures::UnsortedSequenceTable<Education, int>();
+			for (size_t i = 0; i < 8; i++)
+			{
+				Education TYPE = Education(i + 1);
+				index = row.find(searched);
+				number = std::stoi(row.substr(0, index));
+				education->insert(TYPE, number);
+				row.erase(0, index + searched.length());
+			}
 
+			Town* town = nullptr;
+			if (towns_->tryFind(title, town)) {
+				if (town != nullptr && town->getCode() != code) {
+					for (auto item : *problemTowns_)
+					{
+						//town = item->accessData()->getCode() == code ? item->accessData() : nullptr;
+						town = nullptr;
+						if (item->accessData()->getCode() == code) {
+							town = item->accessData();
+							break;
+						}
+					}
+					town->saveEducation(*education);
+				}
+			}
+			delete education;
 			//Town& town = dynamic_cast<Town&>(*towns->at(counter));
-			counter++;
+			//counter++;
 		}
 		return true;
 	}

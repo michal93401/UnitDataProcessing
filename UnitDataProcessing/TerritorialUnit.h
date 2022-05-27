@@ -2,6 +2,7 @@
 #include <string>
 #include "types.h"
 #include "sorted_sequence_table.h"
+#include "unsorted_sequence_table.h"
 
 class TerritorialUnit {
 public:
@@ -14,6 +15,9 @@ public:
 	TerritorialUnit* getHigherUnit() const;
 	structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* getUnits() const;
 	void setUnits(structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* newUnits);
+	int getPeopleCount();
+	void saveAge(structures::Array<int>& man, structures::Array<int>& woman);
+	void saveEducation(structures::UnsortedSequenceTable<Education, int>& education);
 	std::wstring toString();
 protected:
 	std::wstring officialTitle_;
@@ -21,4 +25,7 @@ protected:
 	TerritorialUnitTypes type_;
 	TerritorialUnit* higherUnit_ = nullptr;
 	structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* Units_ = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>();
+	structures::Array<int>* man_ = new structures::Array<int>(101);
+	structures::Array<int>* woman_ = new structures::Array<int>(101);
+	structures::UnsortedSequenceTable<Education, int>* education_ = new structures::UnsortedSequenceTable<Education, int>();
 };

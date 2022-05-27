@@ -46,6 +46,31 @@ void TerritorialUnit::setUnits(structures::SortedSequenceTable<std::wstring, Ter
 	Units_ = newUnits;
 }
 
+int TerritorialUnit::getPeopleCount()
+{
+	size_t people = 0;
+	for (size_t i = 0; i < man_->size(); i++)
+	{
+		people += man_->at(i);
+	}
+	for (size_t i = 0; i < woman_->size(); i++)
+	{
+		people += woman_->at(i);
+	}
+	return people;
+}
+
+void TerritorialUnit::saveAge(structures::Array<int>& man, structures::Array<int>& woman)
+{
+	man_->assign(man);
+	woman_->assign(woman);
+}
+
+void TerritorialUnit::saveEducation(structures::UnsortedSequenceTable<Education, int>& education)
+{
+	education_->assign(education);
+}
+
 std::wstring TerritorialUnit::toString()
 {
 	return officialTitle_;

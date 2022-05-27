@@ -9,7 +9,7 @@ namespace structures
 }
 
 enum Education {
-	BEZ_VZDELANIA_TEENS,
+	BEZ_UKONCENEHO_VZDELANIA,
 	ZAKLADNE,
 	STREDNE_ODBORNE,
 	STREDNE_MATURITA,
@@ -30,4 +30,9 @@ enum EVS {
 	PreProductive,
 	Productive,
 	PostProductive
+};
+
+enum Pohlavie {
+	Man,
+	Woman
 };
