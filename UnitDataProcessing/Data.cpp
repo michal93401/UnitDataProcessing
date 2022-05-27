@@ -1,6 +1,8 @@
 #include "Data.h"
 #include "Town.h"
-
+#include <iostream>
+#include <io.h>
+#include <fcntl.h>
 Data::~Data()
 {
 	delete regions_;
@@ -11,46 +13,80 @@ Data::~Data()
 bool Data::loadData(std::string& message_p)
 {
 	if (loadTowns(message_p) &&
-		loadAgeGroups(message_p) &&
-		loadEducation(message_p) && 
 		loadDistricts(message_p) && 
 		loadRegions(message_p)) {
 		return true;
+		//loadAgeGroups(message_p) &&
+		//loadEducation(message_p) && 
 	}
 	return false;
 }
 
 bool Data::loadRegions(std::string& message_p)
 {
-	if (loadTerritorialUnits("../data/kraje.csv")) {
+	auto titles = new structures::ArrayList<std::wstring*>();
+	auto codes = new structures::ArrayList<std::wstring*>();
+	if (loadTerritorialUnits("../data/kraje.csv", titles, codes)) {
+		for (size_t i = 0; i < titles->size(); i++)
+		{
+			regions_->add(*titles->at(i), new Region(*titles->at(i), *codes->at(i), TerritorialUnitTypes::Region));
+		}
 		return true;
 	}
 	else {
 		message_p = "Could not load kraje.csv";
 		return false;
 	}
+	delete titles;
+	delete codes;
 }
 
 bool Data::loadDistricts(std::string& message_p)
 {
-	if (loadTerritorialUnits("../data/okresy.csv")) {
+	auto titles = new structures::ArrayList<std::wstring*>();
+	auto codes = new structures::ArrayList<std::wstring*>();
+	if (loadTerritorialUnits("../data/okresy.csv", titles, codes)) {
+		for (size_t i = 0; i < titles->size(); i++)
+		{
+			districts_->add(*titles->at(i), new District(*titles->at(i), *codes->at(i), TerritorialUnitTypes::District));
+		}
 		return true;
 	}
 	else {
 		message_p = "Could not load okresy.csv";
 		return false;
 	}
+	delete titles;
+	delete codes;
 }
 
 bool Data::loadTowns(std::string& message_p)
 {
-	if (loadTerritorialUnits("../data/obce.csv")) {
+	auto titles = new structures::ArrayList<std::wstring*>();
+	auto codes = new structures::ArrayList<std::wstring*>();
+	int duplicates = 2;
+	if (loadTerritorialUnits("../data/obce.csv", titles, codes)) {
+		for (size_t i = 0; i < titles->size(); i++)
+		{
+			try
+			{
+				towns_->insert(*titles->at(i), new Town(*titles->at(i), *codes->at(i), TerritorialUnitTypes::Town));
+			}
+			catch (const std::exception&)
+			{
+				std::wstring problemTitle = *titles->at(i) + std::to_wstring(duplicates);
+				problemTowns_->insert(problemTitle, new Town(*titles->at(i), *codes->at(i), TerritorialUnitTypes::Town));
+				duplicates++;
+			}
+		}
 		return true;
 	}
 	else {
 		message_p = "Could not load obce.csv";
 		return false;
 	}
+	delete titles;
+	delete codes;
 }
 
 bool Data::loadAgeGroups(std::string& message_p)
@@ -140,10 +176,11 @@ bool Data::loadEducation(std::string& message_p)
 	}
 }
 
-bool Data::loadTerritorialUnits(const char* fileName_p)
+bool Data::loadTerritorialUnits(const char* fileName_p, structures::ArrayList<std::wstring*>* titles, structures::ArrayList<std::wstring*>* codes)
 {
 	std::wstring row;
 	std::wifstream file(fileName_p);
+	//size_t duplicates = 2;
 	if (file.is_open()) {
 		file.imbue(std::locale(file.getloc(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::consume_header>));
 
@@ -163,12 +200,37 @@ bool Data::loadTerritorialUnits(const char* fileName_p)
 			index = row.find(searched);
 			ofTitle = row.substr(0, index);
 			row.erase(0, index + searched.length());
-			//regions_->insert(ofTitle, new TerritorialUnit(ofTitle, code, TerritorialUnitTypes::Region));
+
+			titles->add(new std::wstring{ ofTitle });
+			codes->add(new std::wstring{ code });
+			/*try
+			{
+				container.insert(ofTitle, new TerritorialUnit(ofTitle, code, type));
+			}
+			catch (const std::exception&)
+			{
+				std::wstring problemTitle = ofTitle + std::to_wstring(duplicates);
+				problemTowns_->insert(problemTitle, new Town(ofTitle, code, type));
+				duplicates++;
+			}*/
 		}
 		return true;
 	}
 	else {
 		return false;
 	}
+}
+
+void Data::print()
+{
+	/*for (size_t i = 0; i < towns_->size(); i++)
+	{
+		std::wcout << towns_->at(i).accessData()->getOfficialTitle() << std::endl;
+	}*/
+	_setmode(_fileno(stdout), _O_U16TEXT);
+	for (auto item : *towns_) {
+		std::wcout << item->accessData()->getOfficialTitle() << std::endl;
+	}
+	
 }
 

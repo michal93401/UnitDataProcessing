@@ -14,13 +14,14 @@ public:
 	Data() = default;
 	~Data();
 	bool loadData(std::string& message_p);
+	void print();
 private:
 	bool loadRegions(std::string& message_p);
 	bool loadDistricts(std::string& message_p);
 	bool loadTowns(std::string& message_p);
 	bool loadAgeGroups(std::string& message_p);
 	bool loadEducation(std::string& message_p);
-	bool loadTerritorialUnits(const char* fileName_p);
+	bool loadTerritorialUnits(const char* fileName_p, structures::ArrayList<std::wstring*>* titles, structures::ArrayList<std::wstring*>* codes);
 private:
 	TerritorialUnit* State_;
 	structures::SortedSequenceTable<std::wstring, Region*>* regions_ = new structures::SortedSequenceTable<std::wstring, Region*>();

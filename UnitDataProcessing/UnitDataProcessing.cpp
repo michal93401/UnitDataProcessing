@@ -23,7 +23,7 @@ void UnitDataProcessing::load()
 	else {
 		loaded_ = false;
 		std::cout << message << std::endl;
-		std::cout << "Check file path in Data.cpp" << std::endl;
+		std::wcout << "Check file path in Data.cpp" << std::endl;
 	}
 }
 
@@ -31,11 +31,16 @@ void UnitDataProcessing::start()
 {
 	if (loaded_) {
 		run_ = true;
-		std::cout << "Succesfully started!" << std::endl;
+		std::wcout << "Succesfully started!" << std::endl;
 	}
 	else {
+		std::wcout << "Failed to load data!" << std::endl;
 		return;
 	}
 	
+	while (run_)
+	{
+		data_->print();
+	}
 
 }

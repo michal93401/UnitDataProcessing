@@ -6,7 +6,7 @@
 int main()
 {
     initHeapMonitor();
-    std::cout << "Hello World!\n";
+    std::wcout << "Hello World!\n";
     UnitDataProcessing* processApp = new UnitDataProcessing;
     processApp->load();
     processApp->start();

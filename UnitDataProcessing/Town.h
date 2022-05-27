@@ -5,6 +5,8 @@
 class Town : public TerritorialUnit
 {
 public:
+	Town(std::wstring officialTitle, std::wstring code, TerritorialUnitTypes type) :
+		TerritorialUnit(officialTitle, code, type) {};
 	void saveThings(structures::Array<int>& man, structures::Array<int>& woman);
 	void saveThings2(structures::UnsortedSequenceTable<std::wstring, int>& education);
 private:
