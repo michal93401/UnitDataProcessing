@@ -149,6 +149,30 @@
     <ClInclude Include="UnitDataProcessing.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="ParametricCriteria.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="ParametricCriteriaTerritorialUnit.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="ParametricCriteriaTerritorialUnitEducationCount.h">
+      <Filter>Header Files\Criterias</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_TypeEquals.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_TypeLess.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_TypeMore.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_Composite.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_CompositeAND.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

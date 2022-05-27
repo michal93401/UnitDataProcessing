@@ -11,6 +11,6 @@ public:
 	CriteriaTerritorialUnitEducationCount(Education education) : education_(education)
 	{}
 	int evaluate(const TerritorialUnit& unit) {
-		return unit.;
+		return unit.getEducation(education_);
 	};
 };

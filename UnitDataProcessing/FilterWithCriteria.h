@@ -1,5 +1,6 @@
 #pragma once
 #include "Filter.h"
+#include "Criteria.h"
 
 template<typename ObjectType, typename ValueType>
 class FilterWithCriteria : public Filter<ObjectType> {
@@ -12,3 +13,21 @@ protected:
 private:
 	Criteria<ObjectType, ValueType>* criteria_;
 };
+
+template<typename ObjectType, typename ValueType>
+inline FilterWithCriteria<ObjectType, ValueType>::FilterWithCriteria(Criteria<ObjectType, ValueType>* criteria)
+	: criteria_(criteria)
+{
+}
+
+template<typename ObjectType, typename ValueType>
+inline FilterWithCriteria<ObjectType, ValueType>::~FilterWithCriteria()
+{
+	delete criteria_;
+}
+
+template<typename ObjectType, typename ValueType>
+inline bool FilterWithCriteria<ObjectType, ValueType>::pass(const ObjectType& object)
+{
+	return passFilter(criteria_->evaluate(object));
+}

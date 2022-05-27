@@ -15,9 +15,11 @@ public:
 	TerritorialUnit* getHigherUnit() const;
 	structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* getUnits() const;
 	void setUnits(structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* newUnits);
-	int getPeopleCount();
+	int getPeopleCount() const;
 	void saveAge(structures::Array<int>& man, structures::Array<int>& woman);
 	void saveEducation(structures::UnsortedSequenceTable<Education, int>& education);
+	int getAge(int age, Pohlavie pohlavie) const;
+	int getEducation(Education type) const;
 	std::wstring toString();
 protected:
 	std::wstring officialTitle_;

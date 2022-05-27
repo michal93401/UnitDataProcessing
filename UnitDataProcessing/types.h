@@ -8,7 +8,7 @@ namespace structures
     using Microseconds = std::chrono::microseconds;
 }
 
-enum Education {
+enum class Education {
 	BEZ_UKONCENEHO_VZDELANIA,
 	ZAKLADNE,
 	STREDNE_ODBORNE,
@@ -32,7 +32,7 @@ enum EVS {
 	PostProductive
 };
 
-enum Pohlavie {
+enum class Pohlavie {
 	Man,
 	Woman
 };

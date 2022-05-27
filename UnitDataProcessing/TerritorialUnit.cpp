@@ -46,7 +46,7 @@ void TerritorialUnit::setUnits(structures::SortedSequenceTable<std::wstring, Ter
 	Units_ = newUnits;
 }
 
-int TerritorialUnit::getPeopleCount()
+int TerritorialUnit::getPeopleCount() const
 {
 	size_t people = 0;
 	for (size_t i = 0; i < man_->size(); i++)
@@ -69,6 +69,24 @@ void TerritorialUnit::saveAge(structures::Array<int>& man, structures::Array<int
 void TerritorialUnit::saveEducation(structures::UnsortedSequenceTable<Education, int>& education)
 {
 	education_->assign(education);
+}
+
+int TerritorialUnit::getAge(int age, Pohlavie pohlavie) const
+{
+	switch (pohlavie)
+	{
+	case Pohlavie::Man:
+		return man_->at(age);
+	case Pohlavie::Woman:
+		return woman_->at(age);
+	default:
+		return -1;
+	}
+}
+
+int TerritorialUnit::getEducation(Education type) const
+{
+	return education_->find(type);
 }
 
 std::wstring TerritorialUnit::toString()

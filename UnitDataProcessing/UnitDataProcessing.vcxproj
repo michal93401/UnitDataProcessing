@@ -162,9 +162,17 @@
     <ClInclude Include="District.h" />
     <ClInclude Include="Filter.h" />
     <ClInclude Include="FilterWithCriteria.h" />
+    <ClInclude Include="Filter_Composite.h" />
+    <ClInclude Include="Filter_CompositeAND.h" />
     <ClInclude Include="Filter_Range.h" />
     <ClInclude Include="Filter_Type.h" />
+    <ClInclude Include="Filter_TypeEquals.h" />
+    <ClInclude Include="Filter_TypeLess.h" />
+    <ClInclude Include="Filter_TypeMore.h" />
     <ClInclude Include="list.h" />
+    <ClInclude Include="ParametricCriteria.h" />
+    <ClInclude Include="ParametricCriteriaTerritorialUnit.h" />
+    <ClInclude Include="ParametricCriteriaTerritorialUnitEducationCount.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="SelectionCriteria.h" />
     <ClInclude Include="sequence_table.h" />

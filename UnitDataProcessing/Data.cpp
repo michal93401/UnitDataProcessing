@@ -46,10 +46,31 @@ bool Data::loadDistricts(std::string& message_p)
 {
 	auto titles = new structures::ArrayList<std::wstring*>();
 	auto codes = new structures::ArrayList<std::wstring*>();
+	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
+	auto education = new structures::UnsortedSequenceTable<Education, int>;
+	structures::Array<int> man(101);
+	structures::Array<int> woman(101);
 	if (loadTerritorialUnits("../data/okresy.csv", titles, codes)) {
 		for (size_t i = 0; i < titles->size(); i++)
 		{
-			districts_->add(*titles->at(i), new District(*titles->at(i), *codes->at(i), TerritorialUnitTypes::District));
+			auto newDistrict = new District(*titles->at(i), *codes->at(i), TerritorialUnitTypes::District);
+			districts_->add(*titles->at(i), newDistrict);
+			for (auto item : *towns_) {
+				if (*codes->at(i) == item->accessData()->getCode().substr(0, 5)) {
+					item->accessData()->setHigherUnit(newDistrict);
+					units->add(item->accessData()->getOfficialTitle(), item->accessData());
+					for (int j = 1; j <= 8; j++) {
+						education->at(j - 1) += item->accessData()->getEducation(Education(j));
+					}
+
+					for (int j = 0; j < 101; j++) {
+						man[j] += item->accessData()->getAge(j, Pohlavie::Man);
+						woman[i] += item->accessData()->getAge(j, Pohlavie::Woman);
+					}
+					newDistrict->saveEducation(*education);
+					newDistrict->saveAge(man, woman);
+				}
+			}
 		}
 		return true;
 	}
@@ -138,7 +159,7 @@ bool Data::loadAgeGroups(std::string& message_p)
 							break;
 						}
 					}
-					town->saveAge(man, woman);
+					town->saveAge(man, woman); //toto mozno nie je na spravnej pozicii a taktiez je to hodnota nie referencia
 				}
 			}
 			//town.saveThings(man, woman);
