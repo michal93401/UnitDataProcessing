@@ -8,5 +8,5 @@ public:
 };
 
 inline State::State() :
-	TerritorialUnit({ L'Slovakia' }, { L'SK' }, TerritorialUnitTypes::State) {
+	TerritorialUnit({ L"Slovakia"}, {L"SK"}, TerritorialUnitTypes::State) {
 }

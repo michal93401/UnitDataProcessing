@@ -38,10 +38,10 @@ void UnitDataProcessing::start()
 		return;
 	}
 	
-	while (run_)
+	/*while (run_)
 	{
 		data_->print();
 		run_ = false;
-	}
+	}*/
 
 }

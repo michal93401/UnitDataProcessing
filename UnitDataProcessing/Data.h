@@ -22,7 +22,9 @@ private:
 	bool loadTowns(std::string& message_p);
 	bool loadAgeGroups(std::string& message_p);
 	bool loadEducation(std::string& message_p);
-	bool loadTerritorialUnits(const char* fileName_p, structures::ArrayList<std::wstring*>* titles, structures::ArrayList<std::wstring*>* codes);
+	bool loadTerritorialUnits(const char* fileName_p, structures::ArrayList<std::wstring*>* titles, structures::ArrayList<std::wstring*>* codes,
+		structures::ArrayList<std::wstring*>* notes);
+	void deleteContainer(structures::ArrayList<std::wstring*>* container);
 private:
 	TerritorialUnit* State_ = new State();
 	structures::SortedSequenceTable<std::wstring, Region*>* regions_ = new structures::SortedSequenceTable<std::wstring, Region*>();

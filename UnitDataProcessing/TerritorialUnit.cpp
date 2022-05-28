@@ -7,8 +7,17 @@ TerritorialUnit::TerritorialUnit(std::wstring officialTitle, std::wstring code, 
 
 TerritorialUnit::~TerritorialUnit()
 {
+	/*for (auto item : *Units_) {
+		delete item->accessData();
+	}*/
+	for (auto item : *education_) {
+		delete item;
+	}
+	higherUnit_ = nullptr;
 	delete Units_;
-	delete higherUnit_;
+	delete man_;
+	delete woman_;
+	delete education_;
 }
 
 const std::wstring& TerritorialUnit::getOfficialTitle() const
