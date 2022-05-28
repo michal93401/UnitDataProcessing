@@ -173,9 +173,12 @@
     <ClInclude Include="ParametricCriteria.h" />
     <ClInclude Include="ParametricCriteriaTerritorialUnit.h" />
     <ClInclude Include="ParametricCriteriaTerritorialUnitEducationCount.h" />
+    <ClInclude Include="quick_sort.h" />
     <ClInclude Include="Region.h" />
     <ClInclude Include="SelectionCriteria.h" />
     <ClInclude Include="sequence_table.h" />
+    <ClInclude Include="shell_sort.h" />
+    <ClInclude Include="sort.h" />
     <ClInclude Include="sorted_sequence_table.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="structure.h" />

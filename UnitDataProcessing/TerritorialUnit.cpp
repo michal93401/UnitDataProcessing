@@ -10,9 +10,9 @@ TerritorialUnit::~TerritorialUnit()
 	/*for (auto item : *Units_) {
 		delete item->accessData();
 	}*/
-	for (auto item : *education_) {
+	/*for (auto item : *education_) {
 		delete item;
-	}
+	}*/
 	higherUnit_ = nullptr;
 	delete Units_;
 	delete man_;
@@ -75,7 +75,7 @@ void TerritorialUnit::saveAge(structures::Array<int>& man, structures::Array<int
 	woman_->assign(woman);
 }
 
-void TerritorialUnit::saveEducation(structures::UnsortedSequenceTable<Education, int>& education)
+void TerritorialUnit::saveEducation(structures::Array<int>& education)
 {
 	education_->assign(education);
 }
@@ -95,7 +95,7 @@ int TerritorialUnit::getAge(int age, Pohlavie pohlavie) const
 
 int TerritorialUnit::getEducation(Education type) const
 {
-	return education_->find(type);
+	return education_->at(int(type));
 }
 
 std::wstring TerritorialUnit::toString()

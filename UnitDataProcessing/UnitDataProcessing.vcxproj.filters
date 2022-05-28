@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Data">
       <UniqueIdentifier>{708446be-53b3-4ae6-bedd-ac03f8d4e28c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sorting">
+      <UniqueIdentifier>{558caf42-9e2b-48a2-a3dd-5f6fe67caaf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UnitDataProcessing.cpp">
@@ -172,6 +175,15 @@
     </ClInclude>
     <ClInclude Include="Filter_CompositeAND.h">
       <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="shell_sort.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="sort.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="quick_sort.h">
+      <Filter>Header Files\Sorting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

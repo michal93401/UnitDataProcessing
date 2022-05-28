@@ -44,7 +44,7 @@ bool Data::loadRegions(std::string& message_p)
 	auto codes = new structures::ArrayList<std::wstring*>();
 	auto notes = new structures::ArrayList<std::wstring*>();
 	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
-	auto education = new structures::UnsortedSequenceTable<Education, int>;
+	auto education = new structures::Array<int>(9);
 	structures::Array<int> man(101);
 	structures::Array<int> woman(101);
 	if (loadTerritorialUnits("../data/kraje.csv", titles, codes, notes)) {
@@ -63,7 +63,8 @@ bool Data::loadRegions(std::string& message_p)
 					item->accessData()->setHigherUnit(newRegion);
 					units->add(item->accessData()->getOfficialTitle(), item->accessData());
 					for (int j = 1; j <= 8; j++) {
-						education->find(Education(j)) += item->accessData()->getEducation(Education(j));
+						education->at(j) += item->accessData()->getEducation(Education(j));
+						//education->find(Education(j)) += item->accessData()->getEducation(Education(j));
 					}
 
 					for (int j = 0; j < 101; j++) {
@@ -98,7 +99,7 @@ bool Data::loadDistricts(std::string& message_p)
 	auto titles = new structures::ArrayList<std::wstring*>();
 	auto codes = new structures::ArrayList<std::wstring*>();
 	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
-	auto education = new structures::UnsortedSequenceTable<Education, int>;
+	auto education = new structures::Array<int>(9);
 	structures::Array<int> man(101);
 	structures::Array<int> woman(101);
 	if (loadTerritorialUnits("../data/okresy.csv", titles, codes, nullptr)) {
@@ -112,9 +113,11 @@ bool Data::loadDistricts(std::string& message_p)
 					item->accessData()->setHigherUnit(newDistrict);
 					units->add(item->accessData()->getOfficialTitle(), item->accessData());
 					for (int j = 1; j <= 8; j++) {
+						education->at(j) += item->accessData()->getEducation(Education(j));
 						//try
 						//{
-							education->find(Education(j)) += item->accessData()->getEducation(Education(j));
+							//education->insert(Education(j), 0);
+							//education->find(Education(j)) += item->accessData()->getEducation(Education(j));
 						//}
 						//catch (const std::exception&)
 						//{
@@ -133,14 +136,15 @@ bool Data::loadDistricts(std::string& message_p)
 					item->accessData()->setHigherUnit(newDistrict);
 					units->add(item->accessData()->getOfficialTitle(), item->accessData());
 					for (int j = 1; j <= 8; j++) {
-						try
-						{
-							education->find(Education(j)) += item->accessData()->getEducation(Education(j));
-						}
-						catch (const std::exception&)
-						{
-							break;
-						}
+						education->at(j) += item->accessData()->getEducation(Education(j));
+						//try
+						//{
+						//education->find(Education(j)) += item->accessData()->getEducation(Education(j));
+						//}
+						//catch (const std::exception&)
+						//{
+						//	break;
+						//}
 					}
 
 					for (int j = 0; j < 101; j++) {
@@ -290,13 +294,14 @@ bool Data::loadEducation(std::string& message_p)
 			title = row.substr(0, index);
 			row.erase(0, index + searched.length());
 
-			structures::UnsortedSequenceTable<Education, int>* education = new structures::UnsortedSequenceTable<Education, int>();
+			structures::Array<int>* education = new structures::Array<int>(9);
 			for (int i = 0; i < 8; i++)
 			{
-				Education TYPE = Education(i + 1);
+				//Education TYPE = Education(i + 1);
 				index = row.find(searched);
 				number = std::stoi(row.substr(0, index));
-				education->insert(TYPE, number);
+				education->at(i+1) = number;
+				//education->insert(TYPE, number);
 				row.erase(0, index + searched.length());
 			}
 			Town* town = nullptr;
@@ -397,53 +402,9 @@ void Data::print()
 	{
 		std::wcout << towns_->at(i).accessData()->getOfficialTitle() << std::endl;
 	}*/
-	_setmode(_fileno(stdout), _O_U16TEXT);
+	//_setmode(_fileno(stdout), _O_U16TEXT);
 	/*for (auto item : *towns_) {
 		std::wcout << item->accessData()->getOfficialTitle() << std::endl;
-	}*/
-	/*auto titles = new structures::ArrayList<std::wstring*>();
-	auto codes = new structures::ArrayList<std::wstring*>();
-	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
-	auto education = new structures::UnsortedSequenceTable<Education, int>;
-	structures::Array<int> man(101);
-	structures::Array<int> woman(101);
-	loadTerritorialUnits("../data/okresy.csv", titles, codes);
-	for (size_t i = 0; i < titles->size(); i++)
-	{
-		auto newDistrict = new District(*titles->at(i), *codes->at(i), TerritorialUnitTypes::District);
-		districts_->add(*titles->at(i), newDistrict);
-		std::wstring comparedcode = *codes->at(i);
-		for (auto item : *towns_) {
-			std::wstring comparedcode2 = item->accessData()->getCode().substr(0, 6);
-			if (comparedcode.compare(comparedcode2) == 0) {
-				item->accessData()->setHigherUnit(newDistrict);
-				units->add(item->accessData()->getOfficialTitle(), item->accessData());
-				for (int j = 1; j <= 8; j++) {
-					education->find(Education(j)) += item->accessData()->getEducation(Education(j));
-				}
-
-				for (int j = 0; j < 101; j++) {
-					man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-					woman[i] += item->accessData()->getAge(j, Pohlavie::Woman);
-				}
-			}
-		}
-		for (auto item : *problemTowns_) {
-			if (*codes->at(i) == item->accessData()->getCode().substr(0, 5)) {
-				item->accessData()->setHigherUnit(newDistrict);
-				units->add(item->accessData()->getOfficialTitle(), item->accessData());
-				for (int j = 1; j <= 8; j++) {
-					education->find(Education(j)) += item->accessData()->getEducation(Education(j));
-				}
-
-				for (int j = 0; j < 101; j++) {
-					man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-					woman[i] += item->accessData()->getAge(j, Pohlavie::Woman);
-				}
-			}
-		}
-		newDistrict->saveEducation(*education);
-		newDistrict->saveAge(man, woman);
 	}*/
 }
 
