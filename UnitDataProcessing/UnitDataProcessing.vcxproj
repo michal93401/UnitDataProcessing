@@ -164,6 +164,7 @@
     <ClInclude Include="FilterWithCriteria.h" />
     <ClInclude Include="Filter_Composite.h" />
     <ClInclude Include="Filter_CompositeAND.h" />
+    <ClInclude Include="Filter_CriteriaAffi.h" />
     <ClInclude Include="Filter_CriteriaEquals.h" />
     <ClInclude Include="Filter_Range.h" />
     <ClInclude Include="Filter_Type.h" />

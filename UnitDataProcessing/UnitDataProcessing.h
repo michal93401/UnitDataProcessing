@@ -6,7 +6,7 @@
 #include "CriteriaTerritorialUnitAffiliation.h"
 #include "CriteriaTerritorialUnitName.h"
 #include "CriteriaTerritorialUnitType.h"
-#include "FilterWithCriteria.h"
+#include "Filter_CriteriaAffi.h"
 #include "Filter_TypeEqualLess.h"
 #include "Filter_TypeEqualMore.h"
 #include "Filter_TypeEquals.h"
@@ -14,6 +14,7 @@
 #include "Filter_TypeMore.h"
 #include "Filter_TypeEquals.h"
 #include "Filter_CompositeAND.h"
+#include "Filter_Range.h"
 #include "quick_sort.h"
 #include "shell_sort.h"
 #include <codecvt>
@@ -52,9 +53,10 @@ private:
 	CriteriaTerritorialUnitEducationPortion* getCriteriaEduPortion(Education education);
 	CriteriaTerritorialUnitName* getCriteriaName();
 	CriteriaTerritorialUnitType* getCriteriaType();
+	structures::ArrayList<TerritorialUnit*>* filterOnContainer(Filter<TerritorialUnit>& filter, structures::ArrayList<TerritorialUnit*>* units);
 
 	template<typename T, typename ValueType>
-	void userSort(structures::ArrayList<TerritorialUnit*>* units, CriteriaTerritorialUnit<ValueType>* criteria);
+	void userSort(structures::ArrayList<TerritorialUnit*>* units, CriteriaTerritorialUnit<ValueType>* criteria, bool vzostupne);
 //	template<typename ResultType>
 //	CriteriaTerritorialUnit<ResultType>* getCriteriaByType(int type, TerritorialUnit& unit, Education education);
 };

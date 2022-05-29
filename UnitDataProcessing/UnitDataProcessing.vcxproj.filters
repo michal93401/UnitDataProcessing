@@ -194,6 +194,9 @@
     <ClInclude Include="Filter_CriteriaEquals.h">
       <Filter>Header Files\Filters</Filter>
     </ClInclude>
+    <ClInclude Include="Filter_CriteriaAffi.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
