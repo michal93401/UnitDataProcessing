@@ -177,7 +177,7 @@ void UnitDataProcessing::searchMakingFilter()
             std::wcout << std::wstring{ L"Táto územná jednotka nebola nájdená." } << std::endl;
         }
         auto criterium = new CriteriaTerritorialUnitAffiliation(*unit);
-        auto filter = new Filter_TypeEquals<TerritorialUnit, TerritorialUnit>(criterium, unit);
+        auto filter = new FilterWithCriteria<TerritorialUnit, TerritorialUnit>(criterium);
     }
 
     std::wcout << std::wstring{ L"Použiť filter UJVzdelaniePočet? [Y/N]" } << std::endl;

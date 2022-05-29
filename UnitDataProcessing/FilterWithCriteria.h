@@ -31,3 +31,9 @@ inline bool FilterWithCriteria<ObjectType, ValueType>::pass(const ObjectType& ob
 {
 	return passFilter(criteria_->evaluate(object));
 }
+
+//template<typename ObjectType, typename ValueType>
+//inline bool FilterWithCriteria<ObjectType, ValueType>::passFilter(ValueType value) 
+//{
+//	return true;
+//}

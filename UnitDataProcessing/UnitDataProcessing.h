@@ -6,6 +6,7 @@
 #include "CriteriaTerritorialUnitAffiliation.h"
 #include "CriteriaTerritorialUnitName.h"
 #include "CriteriaTerritorialUnitType.h"
+#include "FilterWithCriteria.h"
 #include "Filter_TypeEqualLess.h"
 #include "Filter_TypeEqualMore.h"
 #include "Filter_TypeEquals.h"
