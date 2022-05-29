@@ -18,5 +18,5 @@ inline Filter_TypeMore<ObjectType, ValueType>::Filter_TypeMore(Criteria<ObjectTy
 template<typename ObjectType, typename ValueType>
 inline bool Filter_TypeMore<ObjectType, ValueType>::passFilter(ValueType value)
 {
-	return value > getValue();
+	return value > Filter_Type<ObjectType, ValueType>::getValue();
 }

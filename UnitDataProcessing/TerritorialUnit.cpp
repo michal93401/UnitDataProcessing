@@ -8,7 +8,9 @@ TerritorialUnit::TerritorialUnit(std::wstring officialTitle, std::wstring code, 
 TerritorialUnit::~TerritorialUnit()
 {
 	/*for (auto item : *Units_) {
-		delete item->accessData();
+		if (item != nullptr && item->accessData() != nullptr) {
+			delete item->accessData();
+		}
 	}*/
 	/*for (auto item : *education_) {
 		delete item;
@@ -32,7 +34,7 @@ const std::wstring& TerritorialUnit::getCode() const
 
 TerritorialUnitTypes TerritorialUnit::getType() const
 {
-	return TerritorialUnitTypes();
+	return type_;
 }
 
 void TerritorialUnit::setHigherUnit(TerritorialUnit* newHigherUnit)
@@ -50,9 +52,10 @@ structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* TerritorialUnit
 	return Units_;
 }
 
-void TerritorialUnit::setUnits(structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* newUnits)
+void TerritorialUnit::setUnits(structures::SortedSequenceTable<std::wstring, TerritorialUnit*>& newUnits)
 {
-	Units_ = newUnits;
+	//Units_ = &newUnits;
+	Units_->assign(newUnits);
 }
 
 int TerritorialUnit::getPeopleCount() const

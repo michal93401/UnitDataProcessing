@@ -1,10 +1,10 @@
 #include "Data.h"
-#include "Town.h"
 #include <iostream>
 #include <io.h>
 #include <fcntl.h>
 Data::~Data()
 {
+	
 	for (auto item : *regions_) {
 		delete item->accessData();
 	}
@@ -17,11 +17,11 @@ Data::~Data()
 	for (auto item : *problemTowns_) {
 		delete item->accessData();
 	}
+	delete State_;
 	delete regions_;
 	delete districts_;
 	delete towns_;
 	delete problemTowns_;
-	delete State_;
 }
 
 bool Data::loadData(std::string& message_p)
@@ -31,6 +31,7 @@ bool Data::loadData(std::string& message_p)
 		loadEducation(message_p) && 
 		loadDistricts(message_p) && 
 		loadRegions(message_p)) {
+		setUpState();
 		return true;
 		
 	}
@@ -44,7 +45,7 @@ bool Data::loadRegions(std::string& message_p)
 	auto codes = new structures::ArrayList<std::wstring*>();
 	auto notes = new structures::ArrayList<std::wstring*>();
 	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
-	auto education = new structures::Array<int>(9);
+	auto education = new structures::Array<int>(8);
 	structures::Array<int> man(101);
 	structures::Array<int> woman(101);
 	if (loadTerritorialUnits("../data/kraje.csv", titles, codes, notes)) {
@@ -56,30 +57,33 @@ bool Data::loadRegions(std::string& message_p)
 		for (int i = 0; i < titles->size(); i++)
 		{
 			auto newRegion = new Region(*titles->at(i), *codes->at(i), TerritorialUnitTypes::Region);
-			regions_->add(*titles->at(i), newRegion);
+			newRegion->setHigherUnit(State_);
+			regions_->insert(*titles->at(i), newRegion);
 			std::wstring comparedCode = notes->at(i)->substr(5, 5);
 			for (auto item : *districts_) {
 				if (comparedCode.compare(item->accessData()->getCode().substr(0, 5)) == 0) {
 					item->accessData()->setHigherUnit(newRegion);
-					units->add(item->accessData()->getOfficialTitle(), item->accessData());
-					for (int j = 1; j <= 8; j++) {
+					units->insert(item->accessData()->getOfficialTitle(), item->accessData());
+					for (int j = 0; j < 8; j++) {
 						education->at(j) += item->accessData()->getEducation(Education(j));
 						//education->find(Education(j)) += item->accessData()->getEducation(Education(j));
 					}
 
 					for (int j = 0; j < 101; j++) {
 						man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-						woman[i] += item->accessData()->getAge(j, Pohlavie::Woman);
+						woman[j] += item->accessData()->getAge(j, Pohlavie::Woman);
 					}
 				}
 			}
 			newRegion->saveEducation(*education);
 			newRegion->saveAge(man, woman);
+			newRegion->setUnits(*units);
 		}
 		deleteContainer(titles);
 		deleteContainer(codes);
 		deleteContainer(notes);
 		delete units;
+		//units = nullptr;  
 		delete education;
 		return true;
 	}
@@ -88,7 +92,7 @@ bool Data::loadRegions(std::string& message_p)
 		deleteContainer(titles);
 		deleteContainer(codes);
 		deleteContainer(notes);
-		delete units;
+		delete units;//units = nullptr; 
 		delete education;
 		return false;
 	}
@@ -99,20 +103,20 @@ bool Data::loadDistricts(std::string& message_p)
 	auto titles = new structures::ArrayList<std::wstring*>();
 	auto codes = new structures::ArrayList<std::wstring*>();
 	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
-	auto education = new structures::Array<int>(9);
+	auto education = new structures::Array<int>(8);
 	structures::Array<int> man(101);
 	structures::Array<int> woman(101);
 	if (loadTerritorialUnits("../data/okresy.csv", titles, codes, nullptr)) {
-		for (int i = 0; i < titles->size(); i++)
+		for (int i = 0; i < titles->size() - 1; i++)
 		{
 			auto newDistrict = new District(*titles->at(i), *codes->at(i), TerritorialUnitTypes::District);
-			districts_->add(*titles->at(i), newDistrict);
+			districts_->insert(*titles->at(i), newDistrict);
 			std::wstring comparedcode = *codes->at(i);
 			for (auto item : *towns_) {
 				if (comparedcode.compare(item->accessData()->getCode().substr(0, 6)) == 0) {
 					item->accessData()->setHigherUnit(newDistrict);
-					units->add(item->accessData()->getOfficialTitle(), item->accessData());
-					for (int j = 1; j <= 8; j++) {
+					units->insert(item->accessData()->getOfficialTitle(), item->accessData());
+					for (int j = 0; j < 8; j++) {
 						education->at(j) += item->accessData()->getEducation(Education(j));
 						//try
 						//{
@@ -127,15 +131,15 @@ bool Data::loadDistricts(std::string& message_p)
 
 					for (int j = 0; j < 101; j++) {
 						man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-						woman[i] += item->accessData()->getAge(j, Pohlavie::Woman);
+						woman[j] += item->accessData()->getAge(j, Pohlavie::Woman);
 					}
 				}
 			}
 			for (auto item : *problemTowns_) {
 				if (*codes->at(i) == item->accessData()->getCode().substr(0, 5)) {
 					item->accessData()->setHigherUnit(newDistrict);
-					units->add(item->accessData()->getOfficialTitle(), item->accessData());
-					for (int j = 1; j <= 8; j++) {
+					units->insert(item->accessData()->getOfficialTitle(), item->accessData());
+					for (int j = 0; j < 8; j++) {
 						education->at(j) += item->accessData()->getEducation(Education(j));
 						//try
 						//{
@@ -149,16 +153,17 @@ bool Data::loadDistricts(std::string& message_p)
 
 					for (int j = 0; j < 101; j++) {
 						man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-						woman[i] += item->accessData()->getAge(j, Pohlavie::Woman);
+						woman[j] += item->accessData()->getAge(j, Pohlavie::Woman);
 					}
 				}
 			}
 			newDistrict->saveEducation(*education);
 			newDistrict->saveAge(man, woman);
+			newDistrict->setUnits(*units);
 		}
 		deleteContainer(titles);
 		deleteContainer(codes);
-		delete units;
+		delete units; // units = nullptr;
 		delete education;
 		return true;
 	}
@@ -166,7 +171,7 @@ bool Data::loadDistricts(std::string& message_p)
 		message_p = "Could not load okresy.csv";
 		deleteContainer(titles);
 		deleteContainer(codes);
-		delete units;
+		delete units; // units = nullptr;
 		delete education;
 		return false;
 	}
@@ -246,14 +251,14 @@ bool Data::loadAgeGroups(std::string& message_p)
 					for (auto item : *problemTowns_)
 					{
 						//town = item->accessData()->getCode() == code ? item->accessData() : nullptr;
-						town = nullptr;
+						//town = nullptr;
 						if (item->accessData()->getCode() == code) {
 							town = item->accessData();
 							break;
 						}
 					}
-					town->saveAge(man, woman); // a taktiez je to hodnota nie referencia
 				}
+				town->saveAge(man, woman); // a taktiez je to hodnota nie referencia
 			}
 			//town.saveThings(man, woman);
 			//counter++;
@@ -294,13 +299,13 @@ bool Data::loadEducation(std::string& message_p)
 			title = row.substr(0, index);
 			row.erase(0, index + searched.length());
 
-			structures::Array<int>* education = new structures::Array<int>(9);
+			structures::Array<int>* education = new structures::Array<int>(8);
 			for (int i = 0; i < 8; i++)
 			{
 				//Education TYPE = Education(i + 1);
 				index = row.find(searched);
 				number = std::stoi(row.substr(0, index));
-				education->at(i+1) = number;
+				education->at(i) = number;
 				//education->insert(TYPE, number);
 				row.erase(0, index + searched.length());
 			}
@@ -310,14 +315,14 @@ bool Data::loadEducation(std::string& message_p)
 					for (auto item : *problemTowns_)
 					{
 						//town = item->accessData()->getCode() == code ? item->accessData() : nullptr;
-						town = nullptr;
+						//town = nullptr;
 						if (item->accessData()->getCode() == code) {
 							town = item->accessData();
 							break;
 						}
 					}
-					town->saveEducation(*education);
 				}
+				town->saveEducation(*education);
 			}
 			delete education;
 			//Town& town = dynamic_cast<Town&>(*towns->at(counter));
@@ -388,6 +393,31 @@ bool Data::loadTerritorialUnits(const char* fileName_p, structures::ArrayList<st
 	}
 }
 
+void Data::setUpState()
+{
+	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
+	auto education = new structures::Array<int>(8);
+	structures::Array<int> man(101);
+	structures::Array<int> woman(101);
+	for (auto item : *regions_) {
+		units->add(item->accessData()->getOfficialTitle(), item->accessData());
+		for (int j = 0; j < 8; j++) {
+			education->at(j) += item->accessData()->getEducation(Education(j));
+			//education->find(Education(j)) += item->accessData()->getEducation(Education(j));
+		}
+		for (int j = 0; j < 101; j++) {
+			man[j] += item->accessData()->getAge(j, Pohlavie::Man);
+			woman[j] += item->accessData()->getAge(j, Pohlavie::Woman);
+		}
+	}
+
+	State_->saveEducation(*education);
+	State_->saveAge(man, woman);
+	State_->setUnits(*units);
+	delete education;
+	delete units; // units = nullptr;
+}
+
 void Data::deleteContainer(structures::ArrayList<std::wstring*>* container)
 {
 	for (auto item : *container) {
@@ -408,3 +438,137 @@ void Data::print()
 	}*/
 }
 
+TerritorialUnit* Data::findUnitByName(TerritorialUnitTypes type, std::wstring& name)
+{
+	switch (type)
+	{
+	case TerritorialUnitTypes::State:
+	{
+		return name == State_->getOfficialTitle() ? State_ : nullptr;
+	}
+	case TerritorialUnitTypes::Region:
+	{
+		Region* regionUnit = nullptr;
+		regions_->tryFind(name, regionUnit);
+		return regionUnit;
+	}
+	case TerritorialUnitTypes::District:
+	{
+		District* districtUnit = nullptr;
+		districts_->tryFind(name, districtUnit);
+		return districtUnit;
+	}
+	}
+	return nullptr;
+}
+
+Town* Data::findCityByName(std::wstring& name)
+{
+	Town* town = nullptr;
+	towns_->tryFind(name, town);
+	return town;
+}
+
+structures::ArrayList<Town*>* Data::findCityDuplicates(std::wstring& name)
+{
+	structures::ArrayList<Town*>* duplicates = new structures::ArrayList<Town*>();
+	for (auto item : *problemTowns_) {
+		std::wstring keyName = item->getKey();
+		if (keyName.substr(0, keyName.length() - 1) == name) {
+			duplicates->add(item->accessData());
+		}
+	}
+	return duplicates;
+}
+
+//template<typename ObjectType, typename ValueType>
+//structures::ArrayList<TerritorialUnit*>* Data::getFilteredUnits(Filter_Type<ObjectType, ValueType>& filter, TerritorialUnitTypes type)
+//{
+//	auto units = new structures::ArrayList<TerritorialUnit*>();
+//
+//	switch (type)
+//	{
+//	case TerritorialUnitTypes::Region:
+//	{
+//		for (auto item : *regions_) {
+//			if (filter.pass(*item->accessData())) {
+//				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+//			}
+//		}
+//		break;
+//	}
+//	case TerritorialUnitTypes::District:
+//	{
+//		for (auto item : *districts_) {
+//			if (filter.pass(*item->accessData())) {
+//				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+//			}
+//		}
+//		break;
+//	}	
+//	case TerritorialUnitTypes::Town:
+//	{
+//		for (auto item : *towns_) {
+//			if (filter.pass(*item->accessData())) {
+//				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+//			}
+//		}
+//		for (auto item : *problemTowns_) {
+//			if (filter.pass(*item->accessData())) {
+//				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+//			}
+//		}
+//		break;
+//	}
+//	default:
+//		break;
+//	}
+//
+//	return units;
+//}
+
+
+structures::ArrayList<TerritorialUnit*>* Data::getFilteredUnits(Filter<TerritorialUnit>& filter, TerritorialUnitTypes type)
+{
+	auto units = new structures::ArrayList<TerritorialUnit*>();
+
+	switch (type)
+	{
+	case TerritorialUnitTypes::Region:
+	{
+		for (auto item : *regions_) {
+			if (filter.pass(*item->accessData())) {
+				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+			}
+		}
+		break;
+	}
+	case TerritorialUnitTypes::District:
+	{
+		for (auto item : *districts_) {
+			if (filter.pass(*item->accessData())) {
+				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+			}
+		}
+		break;
+	}
+	case TerritorialUnitTypes::Town:
+	{
+		for (auto item : *towns_) {
+			if (filter.pass(*item->accessData())) {
+				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+			}
+		}
+		for (auto item : *problemTowns_) {
+			if (filter.pass(*item->accessData())) {
+				units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+			}
+		}
+		break;
+	}
+	default:
+		break;
+	}
+
+	return units;
+}

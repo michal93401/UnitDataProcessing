@@ -18,5 +18,5 @@ inline Filter_TypeEquals<ObjectType, ValueType>::Filter_TypeEquals(Criteria<Obje
 template<typename ObjectType, typename ValueType>
 inline bool Filter_TypeEquals<ObjectType, ValueType>::passFilter(ValueType value)
 {
-	return value == getValue();
+	return value == Filter_Type<ObjectType, ValueType>::getValue();
 }

@@ -2,7 +2,7 @@
 #include "CriteriaTerritorialUnit.h"
 #include <string>
 
-class CriteriaTerritorialUnitEducationType : public CriteriaTerritorialUnit<TerritorialUnitTypes>
+class CriteriaTerritorialUnitType : public CriteriaTerritorialUnit<TerritorialUnitTypes>
 {
 public:
 	TerritorialUnitTypes evaluate(const TerritorialUnit& unit) override {

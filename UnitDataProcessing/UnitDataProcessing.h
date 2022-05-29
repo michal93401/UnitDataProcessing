@@ -1,6 +1,20 @@
 #pragma once
 #include "Data.h"
 #include "types.h"
+#include "CriteriaTerritorialUnitEducationCount.h"
+#include "CriteriaTerritorialUnitEducationPortion.h"
+#include "CriteriaTerritorialUnitAffiliation.h"
+#include "CriteriaTerritorialUnitName.h"
+#include "CriteriaTerritorialUnitType.h"
+#include "Filter_TypeEqualLess.h"
+#include "Filter_TypeEqualMore.h"
+#include "Filter_TypeEquals.h"
+#include "Filter_TypeLess.h"
+#include "Filter_TypeMore.h"
+#include "Filter_TypeEquals.h"
+#include "Filter_CompositeAND.h"
+#include "quick_sort.h"
+#include "shell_sort.h"
 #include <codecvt>
 #include <fstream>
 #include <string>
@@ -25,8 +39,21 @@ private:
 	void searchMakingFilter();
 	void searchUsingMadeFilter();
 	int convertUserInputToNumber(int max);
+	Town* findCityByName(std::wstring name);
+	void writeUnitInfo(TerritorialUnit* unit);
 private:
 	Data* data_;
 	bool loaded_;
 	bool run_;
+private:
+	CriteriaTerritorialUnitAffiliation* getCriteriaAff(TerritorialUnit& unit);
+	CriteriaTerritorialUnitEducationCount* getCriteriaEduCount(Education education);
+	CriteriaTerritorialUnitEducationPortion* getCriteriaEduPortion(Education education);
+	CriteriaTerritorialUnitName* getCriteriaName();
+	CriteriaTerritorialUnitType* getCriteriaType();
+
+	template<typename T, typename ValueType>
+	void userSort(structures::ArrayList<TerritorialUnit*>* units, CriteriaTerritorialUnit<ValueType>* criteria);
+//	template<typename ResultType>
+//	CriteriaTerritorialUnit<ResultType>* getCriteriaByType(int type, TerritorialUnit& unit, Education education);
 };

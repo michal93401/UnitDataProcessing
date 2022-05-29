@@ -18,5 +18,5 @@ inline Filter_TypeLess<ObjectType, ValueType>::Filter_TypeLess(Criteria<ObjectTy
 template<typename ObjectType, typename ValueType>
 inline bool Filter_TypeLess<ObjectType, ValueType>::passFilter(ValueType value)
 {
-	return value < getValue();
+	return value < Filter_Type<ObjectType, ValueType>::getValue();
 }

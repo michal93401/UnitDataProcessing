@@ -185,6 +185,12 @@
     <ClInclude Include="quick_sort.h">
       <Filter>Header Files\Sorting</Filter>
     </ClInclude>
+    <ClInclude Include="Filter_TypeEqualMore.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="Filter_TypeEqualLess.h">
+      <Filter>Header Files\Filters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

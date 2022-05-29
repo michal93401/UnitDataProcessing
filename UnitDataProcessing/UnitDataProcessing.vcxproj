@@ -166,6 +166,8 @@
     <ClInclude Include="Filter_CompositeAND.h" />
     <ClInclude Include="Filter_Range.h" />
     <ClInclude Include="Filter_Type.h" />
+    <ClInclude Include="Filter_TypeEqualLess.h" />
+    <ClInclude Include="Filter_TypeEqualMore.h" />
     <ClInclude Include="Filter_TypeEquals.h" />
     <ClInclude Include="Filter_TypeLess.h" />
     <ClInclude Include="Filter_TypeMore.h" />

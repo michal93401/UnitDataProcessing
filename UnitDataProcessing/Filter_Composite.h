@@ -3,7 +3,7 @@
 #include "array_list.h"
 
 template<typename ObjectType>
-class Filter_Composite : Filter<ObjectType> {
+class Filter_Composite : public Filter<ObjectType> {
 public:
 	Filter_Composite();
 	~Filter_Composite();

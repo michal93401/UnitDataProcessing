@@ -14,7 +14,7 @@ public:
 	void setHigherUnit(TerritorialUnit* newHigherUnit);
 	TerritorialUnit* getHigherUnit() const;
 	structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* getUnits() const;
-	void setUnits(structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* newUnits);
+	void setUnits(structures::SortedSequenceTable<std::wstring, TerritorialUnit*>& newUnits);
 	int getPeopleCount() const;
 	void saveAge(structures::Array<int>& man, structures::Array<int>& woman);
 	void saveEducation(structures::Array<int>& education);
@@ -29,5 +29,5 @@ protected:
 	structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* Units_ = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>();
 	structures::Array<int>* man_ = new structures::Array<int>(101);
 	structures::Array<int>* woman_ = new structures::Array<int>(101);
-	structures::Array<int>* education_ = new structures::Array<int>(9);
+	structures::Array<int>* education_ = new structures::Array<int>(8);
 };
