@@ -1,122 +1,178 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="State">
-    <Position X="0.5" Y="3.75" Width="1.5" />
+    <Position X="1" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>State.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Region">
-    <Position X="2.25" Y="3.75" Width="1.5" />
+    <Position X="3" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Region.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TerritorialUnit">
-    <Position X="1.75" Y="0.5" Width="1.5" />
+    <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAEAABAAAAAAAAAAAAAAI=</HashCode>
+      <HashCode>AIAAAECAADEAEAAAAAAABEAiEQAAAACAEQAIAIIIABI=</HashCode>
       <FileName>TerritorialUnit.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="District">
-    <Position X="4" Y="3.75" Width="1.5" />
+    <Position X="1.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>District.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Town">
-    <Position X="5.75" Y="3.75" Width="1.5" />
+    <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Town.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Criteria&lt;ObjectType, ResultType&gt;">
-    <Position X="9.75" Y="0.5" Width="2.5" />
+    <Position X="16" Y="0.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Criteria.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CriteriaTerritorialUnit&lt;ResultType&gt;">
-    <Position X="9.75" Y="2" Width="2.75" />
+    <Position X="16" Y="2.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CriteriaTerritorialUnit.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CriteriaTerritorialUnitAffiliation">
-    <Position X="7.5" Y="3.75" Width="2.25" />
+    <Position X="12.5" Y="4" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>CriteriaTerritorialUnitAffiliation.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CriteriaTerritorialUnitEducationCount">
-    <Position X="8.25" Y="6" Width="2.75" />
+    <Position X="14.5" Y="6.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>CriteriaTerritorialUnitEducationCount.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CriteriaTerritorialUnitEducationPortion">
-    <Position X="10" Y="3.75" Width="2.75" />
+    <Position X="16.25" Y="4" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAIAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>CriteriaTerritorialUnitEducationPortion.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CriteriaTerritorialUnitName">
-    <Position X="12.5" Y="6" Width="2.75" />
+    <Position X="18.75" Y="6.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CriteriaTerritorialUnitName.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="CriteriaTerritorialUnitEducationType">
-    <Position X="13.5" Y="3.75" Width="2.75" />
+  <Class Name="CriteriaTerritorialUnitType">
+    <Position X="19.75" Y="4" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>CriteriaTerritorialUnitType.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Filter&lt;ObjectType&gt;">
-    <Position X="3.75" Y="5.5" Width="2" />
+    <Position X="0.75" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Filter.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FilterWithCriteria&lt;ObjectType, ValueType&gt;">
-    <Position X="3.5" Y="7.25" Width="2.75" />
+    <Position X="3.75" Y="6.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAABAAgAEAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>FilterWithCriteria.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Filter_Range&lt;ObjectType, ValueType&gt;">
-    <Position X="6.75" Y="8.5" Width="2.75" />
+    <Position X="3" Y="9.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAAIAAAAAAAAACAAAEAAAAAAAAA=</HashCode>
+      <HashCode>EAAABAAQAAAAAAAAAAAIAAAAAAAAACAAAEAAAAAAAAA=</HashCode>
       <FileName>Filter_Range.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Filter_Type&lt;ObjectType, ValueType&gt;">
-    <Position X="0.5" Y="8.5" Width="2.5" />
+    <Position X="7.25" Y="6.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAAACAAAAABAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Filter_Type.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SelectionCriteria&lt;KeyType, ObjectType, ValueType&gt;">
-    <Position X="11.25" Y="8.5" Width="3.75" />
+  <Class Name="Filter_Composite&lt;ObjectType&gt;">
+    <Position X="0.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAQABAAAAAAAAgAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SelectionCriteria.h</FileName>
+      <HashCode>AEAAAAAAAAAAAAEAAAAAAAAABAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter_Composite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Filter_CompositeAND">
+    <Position X="0.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter_CompositeAND.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Filter_CriteriaAffi">
+    <Position X="6" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter_CriteriaAffi.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Filter_CriteriaEquals&lt;ObjectType, ValueType&gt;">
+    <Position X="8" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Filter_CriteriaEquals.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Filter_TypeEquals&lt;ObjectType, ValueType&gt;">
+    <Position X="10.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter_TypeEquals.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Filter_TypeLess&lt;ObjectType, ValueType&gt;">
+    <Position X="12" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter_TypeLess.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Filter_TypeMore&lt;ObjectType, ValueType&gt;">
+    <Position X="13.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter_TypeMore.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitDataProcessing">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAoAACIIgAwAlAAAEAAgAAAJABAAAAAAAAMAAAAA=</HashCode>
+      <FileName>UnitDataProcessing.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Data">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCUAABAAAAIAQQAAAAAAAAAFAAAQgBBIAgACDAACAAg=</HashCode>
+      <FileName>Data.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

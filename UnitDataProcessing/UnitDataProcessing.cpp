@@ -136,7 +136,7 @@ void UnitDataProcessing::searchMakingFilter()
     TerritorialUnitTypes type2 = TerritorialUnitTypes(-1);
     Education education1 = Education(5);
     Education education2 = Education(5);
-    auto filters = new Filter_CompositeAND();
+    //auto filters = new Filter_CompositeAND();
     auto filteredContainer = new structures::ArrayList<TerritorialUnit*>();
 
     std::wcout << std::wstring{ L"Použiť filter UJTyp? [Y/N]" } << std::endl;
@@ -152,7 +152,9 @@ void UnitDataProcessing::searchMakingFilter()
         auto criterium = new CriteriaTerritorialUnitType();
         auto filter = new Filter_TypeEquals<TerritorialUnit, TerritorialUnitTypes>(criterium, type1);
         filteredContainer = data_->getFilteredUnits(*filter, type1);
-        filters->registerFilter(filter);
+        //filters->registerFilter(filter);
+        criterium = nullptr;
+        delete filter;
     }
 
     std::wcout << std::wstring{ L"Použiť filter UJPríslušnosť? [Y/N]" } << std::endl;
@@ -181,8 +183,9 @@ void UnitDataProcessing::searchMakingFilter()
         auto criterium = new CriteriaTerritorialUnitAffiliation(*unit);
         auto filter = new Filter_CriteriaAffi(criterium);
         filteredContainer = filterOnContainer(*filter, filteredContainer);
-        filters->registerFilter(filter);
-
+        //filters->registerFilter(filter);
+        criterium = nullptr;
+        delete filter;
     }
 
     std::wcout << std::wstring{ L"Použiť filter UJVzdelaniePočet? [Y/N]" } << std::endl;
@@ -218,17 +221,23 @@ void UnitDataProcessing::searchMakingFilter()
         if (mincount != -1 && maxcount != -1) {
             auto filter = new Filter_Range<TerritorialUnit, int>(criterium, mincount, maxcount);
             filteredContainer = filterOnContainer(*filter, filteredContainer);
-            filters->registerFilter(filter);
+            //filters->registerFilter(filter);
+            criterium = nullptr;
+            delete filter;
         }
         if (mincount != -1 && maxcount == -1) {
             auto filter = new Filter_TypeMore<TerritorialUnit, int>(criterium, mincount);
             filteredContainer = filterOnContainer(*filter, filteredContainer);
-            filters->registerFilter(filter);
+            //filters->registerFilter(filter);
+            criterium = nullptr;
+            delete filter;
         }
         if (mincount == -1 && maxcount != -1) {
             auto filter = new Filter_TypeLess<TerritorialUnit, int>(criterium, maxcount);
             filteredContainer = filterOnContainer(*filter, filteredContainer);
-            filters->registerFilter(filter);
+            //filters->registerFilter(filter);
+            criterium = nullptr;
+            delete filter;
         }
     }
 
@@ -265,17 +274,23 @@ void UnitDataProcessing::searchMakingFilter()
         if (mincount != -1 && maxcount != -1) {
             auto filter = new Filter_Range<TerritorialUnit, double>(criterium, mincount, maxcount);
             filteredContainer = filterOnContainer(*filter, filteredContainer);
-            filters->registerFilter(filter);
+            //filters->registerFilter(filter);
+            criterium = nullptr;
+            delete filter;
         }
         if (mincount != -1 && maxcount == -1) {
             auto filter = new Filter_TypeMore<TerritorialUnit, double>(criterium, mincount);
             filteredContainer = filterOnContainer(*filter, filteredContainer);
-            filters->registerFilter(filter);
+            //filters->registerFilter(filter);
+            criterium = nullptr;
+            delete filter;
         }
         if (mincount == -1 && maxcount != -1) {
             auto filter = new Filter_TypeLess<TerritorialUnit, double>(criterium, maxcount);
             filteredContainer = filterOnContainer(*filter, filteredContainer);
-            filters->registerFilter(filter);
+            //filters->registerFilter(filter);
+            criterium = nullptr;
+            delete filter;
         }
     }
 
@@ -301,16 +316,19 @@ void UnitDataProcessing::searchMakingFilter()
         {
             auto criteria = new CriteriaTerritorialUnitName();
             userSort<TerritorialUnit, std::wstring>(filteredContainer, criteria, vzostupne);
+            delete criteria;
         }
         case 2:
         {
             auto criteria = new CriteriaTerritorialUnitEducationCount(education1);
             userSort<TerritorialUnit, int>(filteredContainer, criteria, vzostupne);
+            delete criteria;
         }
         case 3:
         {
             auto criteria = new CriteriaTerritorialUnitEducationPortion(education2);
             userSort<TerritorialUnit, double>(filteredContainer, criteria, vzostupne);
+            delete criteria;
         }
         default:
             break;
@@ -318,9 +336,10 @@ void UnitDataProcessing::searchMakingFilter()
     }
 
     for (auto item : *filteredContainer) {
+        std::wcout << std::wstring{ L"-------------------------------------------------------" } << std::endl;
         writeUnitInfo(item);
     }
-    delete filters;
+    //delete filters;
     delete filteredContainer;
 }
 
@@ -328,7 +347,7 @@ void UnitDataProcessing::searchUsingMadeFilter()
 {
     std::wcout << std::wstring{ L"\n--------------------------------------------------------" }  << std::endl;
     std::wcout << 1 << std::wstring{ L" = Informácie o obci Frička." } << std::endl;
-    std::wcout << 2 << std::wstring{ L" = Obce s počtom vysokoškolákov aspoň 3000." } << std::endl;
+    /*std::wcout << 2 << std::wstring{ L" = Obce s počtom vysokoškolákov aspoň 3000." } << std::endl;
     std::wcout << 3 << std::wstring{ L" = Obce s podielom ľudí bez vzdelania menej ako 5%." } << std::endl;
     std::wcout << 4 << std::wstring{ L" = Počet stredoškolsky vzdelaných nad 1000 a podiel vysokoškolsky vzdelaných viac ako 30%." } << std::endl;
     std::wcout << 5 <<std::wstring{ L" = Všetky obce podľa názvu vzostupne." } << std::endl;
@@ -343,10 +362,10 @@ void UnitDataProcessing::searchUsingMadeFilter()
     std::wcout << 14 << std::wstring{ L" = Všetky obce Banskobystrického kraja podľa názvu vzostupne." } << std::endl;
     std::wcout << 15 << std::wstring{ L" = Všetky okresy Nitrianskeho kraja podľa názvu." } << std::endl;
     std::wcout << 16 << std::wstring{ L" = Všetky kraje podľa počtu obyvateľov s učňovským vzdelaním s počom najviac 200000." } << std::endl;
-    std::wcout << 17 << std::wstring{ L" = Všetky okresy podľa podielu obyvateľov s vyšším odborným vzdelaním s podielom najviac 3% vzostupne." } << std::endl;
+    std::wcout << 17 << std::wstring{ L" = Všetky okresy podľa podielu obyvateľov s vyšším odborným vzdelaním s podielom najviac 3% vzostupne." } << std::endl;*/
     std::wcout << std::wstring{ L"\n--------------------------------------------------------" } << std::endl;
 
-    int choice = convertUserInputToNumber(17);
+    int choice = convertUserInputToNumber(1);
     structures::ArrayList<TerritorialUnit*>* filteredUnits = nullptr;
     switch (choice)
     {
@@ -456,7 +475,7 @@ structures::ArrayList<TerritorialUnit*>* UnitDataProcessing::filterOnContainer(F
             filtered->add(item);
         }
     }
-    //delete units;
+    delete units;
     return filtered;
 }
 
