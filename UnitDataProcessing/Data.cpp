@@ -273,8 +273,9 @@ bool Data::loadAgeGroups(std::string& message_p)
 
 bool Data::loadEducation(std::string& message_p)
 {
+	//_setmode(_fileno(stdout), _O_U16TEXT);
 	std::wstring row;
-	std::wifstream file("../data/vek.csv");
+	std::wifstream file("../data/vzdelanie.csv");
 	if (file.is_open()) {
 		file.imbue(std::locale(file.getloc(), new std::codecvt_utf8<wchar_t, 0x10ffff, std::consume_header>));
 
@@ -308,7 +309,9 @@ bool Data::loadEducation(std::string& message_p)
 				education->at(i) = number;
 				//education->insert(TYPE, number);
 				row.erase(0, index + searched.length());
+				//std::wcout << title << std::wstring{ L" : " } << education->at(i) << std::endl;
 			}
+			
 			Town* town = nullptr;
 			if (towns_->tryFind(title, town)) {
 				if (town != nullptr && town->getCode() != code) {
@@ -570,5 +573,23 @@ structures::ArrayList<TerritorialUnit*>* Data::getFilteredUnits(Filter<Territori
 		break;
 	}
 
+	return units;
+}
+
+structures::ArrayList<TerritorialUnit*>* Data::getAllUnits()
+{
+	auto units = new structures::ArrayList<TerritorialUnit*>();
+	for (auto item : *regions_) {
+		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+	}
+	for (auto item : *districts_) {
+		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+	}
+	for (auto item : *towns_) {
+		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+	}
+	for (auto item : *problemTowns_) {
+		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+	}
 	return units;
 }

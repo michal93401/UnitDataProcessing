@@ -184,6 +184,7 @@
     <ClInclude Include="shell_sort.h" />
     <ClInclude Include="sort.h" />
     <ClInclude Include="sorted_sequence_table.h" />
+    <ClInclude Include="sorter.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="structure.h" />
     <ClInclude Include="structure_iterator.h" />

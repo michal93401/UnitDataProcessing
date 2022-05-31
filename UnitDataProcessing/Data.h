@@ -25,6 +25,7 @@ public:
 	//template<typename ObjectType, typename ValueType>
 	//structures::ArrayList<TerritorialUnit*>* getFilteredUnits(Filter_Type<ObjectType, ValueType>& filter, TerritorialUnitTypes type);
 	structures::ArrayList<TerritorialUnit*>* getFilteredUnits(Filter<TerritorialUnit>& filter, TerritorialUnitTypes type);
+	structures::ArrayList<TerritorialUnit*>* getAllUnits();
 
 private:
 	bool loadRegions(std::string& message_p);

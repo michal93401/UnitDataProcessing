@@ -24,7 +24,7 @@ namespace structures
 	inline void ShellSort<T, ValueType>::sort(structures::List<T*>* list,
 		CriteriaTerritorialUnit<ValueType>* criteria, bool ascending)
 	{
-		int krok = std::log(list.size());
+		int krok = std::log(list->size());
 		shell((int)krok, list, criteria, ascending);
 	}
 
@@ -33,7 +33,7 @@ namespace structures
 		CriteriaTerritorialUnit<ValueType>* criteria, bool ascending)
 	{
 		for (int delta = 0; delta <= krok - 1; delta++) {
-			for (int i = delta; i <= list.size() - 1; i += krok) {
+			for (int i = delta; i <= list->size() - 1; i += krok) {
 				int j = i;
 				if (ascending) {
 					if ((j - krok >= delta) && (criteria->evaluate(list->at(j)) < criteria->evaluate(list->at(j - krok)))) {

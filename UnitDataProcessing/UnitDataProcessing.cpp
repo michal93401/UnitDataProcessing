@@ -132,12 +132,12 @@ void UnitDataProcessing::searchMakingFilter()
 {
     std::wcout << std::wstring{ L"\n--------------------------------------------------------" } << std::endl;
     std::wstring contin = { L"" };
-    TerritorialUnitTypes type1 = TerritorialUnitTypes(-1);
-    TerritorialUnitTypes type2 = TerritorialUnitTypes(-1);
-    Education education1 = Education(5);
-    Education education2 = Education(5);
-    //auto filters = new Filter_CompositeAND();
-    auto filteredContainer = new structures::ArrayList<TerritorialUnit*>();
+    TerritorialUnitTypes type1 = TerritorialUnitTypes(0);
+    TerritorialUnitTypes type2 = TerritorialUnitTypes(0);
+    Education education1 = Education(0);
+    Education education2 = Education(0);
+    auto filters = new Filter_CompositeAND();
+    auto filteredContainer = data_->getAllUnits();
 
     std::wcout << std::wstring{ L"Použiť filter UJTyp? [Y/N]" } << std::endl;
     contin = getUserRequest();
@@ -151,10 +151,10 @@ void UnitDataProcessing::searchMakingFilter()
         type1 = TerritorialUnitTypes(convertUserInputToNumber(int(TerritorialUnitTypes::Town)));
         auto criterium = new CriteriaTerritorialUnitType();
         auto filter = new Filter_TypeEquals<TerritorialUnit, TerritorialUnitTypes>(criterium, type1);
-        filteredContainer = data_->getFilteredUnits(*filter, type1);
-        //filters->registerFilter(filter);
-        criterium = nullptr;
-        delete filter;
+        //filteredContainer = data_->getFilteredUnits(*filter, type1);
+        filters->registerFilter(filter);
+        //criterium = nullptr;
+        //delete filter;
     }
 
     std::wcout << std::wstring{ L"Použiť filter UJPríslušnosť? [Y/N]" } << std::endl;
@@ -182,10 +182,10 @@ void UnitDataProcessing::searchMakingFilter()
         }
         auto criterium = new CriteriaTerritorialUnitAffiliation(*unit);
         auto filter = new Filter_CriteriaAffi(criterium);
-        filteredContainer = filterOnContainer(*filter, filteredContainer);
-        //filters->registerFilter(filter);
-        criterium = nullptr;
-        delete filter;
+        //filteredContainer = filterOnContainer(*filter, filteredContainer);
+        filters->registerFilter(filter);
+        //criterium = nullptr;
+        //delete filter;
     }
 
     std::wcout << std::wstring{ L"Použiť filter UJVzdelaniePočet? [Y/N]" } << std::endl;
@@ -220,24 +220,24 @@ void UnitDataProcessing::searchMakingFilter()
         auto criterium = new CriteriaTerritorialUnitEducationCount(education1);
         if (mincount != -1 && maxcount != -1) {
             auto filter = new Filter_Range<TerritorialUnit, int>(criterium, mincount, maxcount);
-            filteredContainer = filterOnContainer(*filter, filteredContainer);
-            //filters->registerFilter(filter);
-            criterium = nullptr;
-            delete filter;
+            //filteredContainer = filterOnContainer(*filter, filteredContainer);
+            filters->registerFilter(filter);
+            //criterium = nullptr;
+            //delete filter;
         }
         if (mincount != -1 && maxcount == -1) {
             auto filter = new Filter_TypeMore<TerritorialUnit, int>(criterium, mincount);
-            filteredContainer = filterOnContainer(*filter, filteredContainer);
-            //filters->registerFilter(filter);
-            criterium = nullptr;
-            delete filter;
+            //filteredContainer = filterOnContainer(*filter, filteredContainer);
+            filters->registerFilter(filter);
+            //criterium = nullptr;
+            //delete filter;
         }
         if (mincount == -1 && maxcount != -1) {
             auto filter = new Filter_TypeLess<TerritorialUnit, int>(criterium, maxcount);
-            filteredContainer = filterOnContainer(*filter, filteredContainer);
-            //filters->registerFilter(filter);
-            criterium = nullptr;
-            delete filter;
+            //filteredContainer = filterOnContainer(*filter, filteredContainer);
+            filters->registerFilter(filter);
+            //criterium = nullptr;
+            //delete filter;
         }
     }
 
@@ -273,28 +273,28 @@ void UnitDataProcessing::searchMakingFilter()
         auto criterium = new CriteriaTerritorialUnitEducationPortion(education1);
         if (mincount != -1 && maxcount != -1) {
             auto filter = new Filter_Range<TerritorialUnit, double>(criterium, mincount, maxcount);
-            filteredContainer = filterOnContainer(*filter, filteredContainer);
-            //filters->registerFilter(filter);
-            criterium = nullptr;
-            delete filter;
+            //filteredContainer = filterOnContainer(*filter, filteredContainer);
+            filters->registerFilter(filter);
+            //criterium = nullptr;
+            //delete filter;
         }
         if (mincount != -1 && maxcount == -1) {
             auto filter = new Filter_TypeMore<TerritorialUnit, double>(criterium, mincount);
-            filteredContainer = filterOnContainer(*filter, filteredContainer);
-            //filters->registerFilter(filter);
-            criterium = nullptr;
-            delete filter;
+            //filteredContainer = filterOnContainer(*filter, filteredContainer);
+            filters->registerFilter(filter);
+            //criterium = nullptr;
+            //delete filter;
         }
         if (mincount == -1 && maxcount != -1) {
             auto filter = new Filter_TypeLess<TerritorialUnit, double>(criterium, maxcount);
-            filteredContainer = filterOnContainer(*filter, filteredContainer);
-            //filters->registerFilter(filter);
-            criterium = nullptr;
-            delete filter;
+            //filteredContainer = filterOnContainer(*filter, filteredContainer);
+            filters->registerFilter(filter);
+            //criterium = nullptr;
+            //delete filter;
         }
     }
 
-    
+    filteredContainer = filterOnContainer(*filters, filteredContainer);
     std::wcout << std::wstring{ L"Usporiadať? [Y/N]" } << std::endl;
     contin = getUserRequest();
     bool sorting = contin == std::wstring{ L"n" } || contin == std::wstring{ L"N" } ? false : true;
@@ -339,7 +339,8 @@ void UnitDataProcessing::searchMakingFilter()
         std::wcout << std::wstring{ L"-------------------------------------------------------" } << std::endl;
         writeUnitInfo(item);
     }
-    //delete filters;
+    delete filters;
+    contin.~basic_string();
     delete filteredContainer;
 }
 
@@ -485,10 +486,12 @@ void UnitDataProcessing::userSort(structures::ArrayList<TerritorialUnit*>* units
         std::wcout << std::wstring{ L"Nič na triedenie! Neboli nájdené žiadne jednotky." } << std::endl;
     }
     else {
-        auto quick = new structures::QuickSort<TerritorialUnit, ValueType>();
-        //auto shell = new structures::ShellSort<TerritorialUnit, ValueType>();
-        quick->sort(units, criteria, vzostupne);
-        //shell->sort(units, criteria, vzostupne);
+        //auto quick = new structures::QuickSort<TerritorialUnit, ValueType>();
+        //auto sorterr = new Sorter<ValueType>(criteria);
+        //sorterr->sort(units, vzostupne);
+        auto shell = new structures::ShellSort<TerritorialUnit, ValueType>();
+        //quick->sort(units, criteria, vzostupne);
+        shell->sort(units, criteria, vzostupne);
     }
 }
 

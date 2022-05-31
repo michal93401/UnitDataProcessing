@@ -197,6 +197,9 @@
     <ClInclude Include="Filter_CriteriaAffi.h">
       <Filter>Header Files\Filters</Filter>
     </ClInclude>
+    <ClInclude Include="sorter.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
