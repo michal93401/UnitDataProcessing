@@ -335,9 +335,15 @@ void UnitDataProcessing::searchMakingFilter()
         }
     }
 
-    for (auto item : *filteredContainer) {
+    /*for (auto item : *filteredContainer) {
         std::wcout << std::wstring{ L"-------------------------------------------------------" } << std::endl;
         writeUnitInfo(item);
+    }*/
+
+    for (size_t i = 0; i < filteredContainer->size(); i++)
+    {
+        std::wcout << std::wstring{ L"-------------------------------------------------------" } << std::endl;
+        writeUnitInfo(filteredContainer->at(i));
     }
     delete filters;
     contin.~basic_string();
@@ -487,11 +493,11 @@ void UnitDataProcessing::userSort(structures::ArrayList<TerritorialUnit*>* units
         std::wcout << std::wstring{ L"Nič na triedenie! Neboli nájdené žiadne jednotky." } << std::endl;
     }
     else {
-        auto quick = new structures::QuickSort<TerritorialUnit, ValueType>();
-        //auto sorterr = new Sorter<ValueType>(criteria);
-        //sorterr->sort(units, vzostupne);
+        //auto quick = new structures::QuickSort<TerritorialUnit, ValueType>();
+        auto sorterr = new Sorter<ValueType>(criteria);
+        sorterr->sort(units, vzostupne);
         //auto shell = new structures::ShellSort<TerritorialUnit, ValueType>();
-        quick->sort(units, criteria, vzostupne);
+        //quick->sort(units, criteria, vzostupne);
         //shell->sort(units, criteria, vzostupne);
     }
 }

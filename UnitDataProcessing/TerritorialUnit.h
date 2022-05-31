@@ -8,8 +8,8 @@ class TerritorialUnit {
 public:
 	TerritorialUnit(std::wstring officialTitle, std::wstring code, TerritorialUnitTypes type);
 	~TerritorialUnit();
-	const std::wstring& getOfficialTitle() const;
-	const std::wstring& getCode() const;
+	const std::wstring getOfficialTitle() const;
+	const std::wstring getCode() const;
 	TerritorialUnitTypes getType() const;
 	void setHigherUnit(TerritorialUnit* newHigherUnit);
 	TerritorialUnit* getHigherUnit() const;

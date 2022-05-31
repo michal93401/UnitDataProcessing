@@ -22,12 +22,12 @@ TerritorialUnit::~TerritorialUnit()
 	delete education_;
 }
 
-const std::wstring& TerritorialUnit::getOfficialTitle() const
+const std::wstring TerritorialUnit::getOfficialTitle() const
 {
 	return officialTitle_;
 }
 
-const std::wstring& TerritorialUnit::getCode() const
+const std::wstring TerritorialUnit::getCode() const
 {
 	return code_;
 }

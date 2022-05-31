@@ -51,7 +51,14 @@ inline void Sorter<K>::quick(structures::ArrayList<TerritorialUnit*>* list, int 
 				right--;
 			}
 		}
-
+		/// <summary>
+		/// like fucking fucking ajdontknow fucking ajdontknow
+		/// </summary>
+		/// <typeparam name="K"></typeparam>
+		/// <param name="list"></param>
+		/// <param name="min"></param>
+		/// <param name="max"></param>
+		/// <param name="direction"></param>
 		if (left <= right)
 		{
 			//swap

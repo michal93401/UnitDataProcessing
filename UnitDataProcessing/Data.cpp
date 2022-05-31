@@ -586,16 +586,16 @@ structures::ArrayList<TerritorialUnit*>* Data::getAllUnits()
 {
 	auto units = new structures::ArrayList<TerritorialUnit*>();
 	for (auto item : *regions_) {
-		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+		units->add(/*reinterpret_cast<TerritorialUnit*>*/(item->accessData()));
 	}
 	for (auto item : *districts_) {
-		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+		units->add(/*reinterpret_cast<TerritorialUnit*>*/(item->accessData()));
 	}
 	for (auto item : *towns_) {
-		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+		units->add(/*(reinterpret_cast<TerritorialUnit*>*/(item->accessData()));
 	}
 	for (auto item : *problemTowns_) {
-		units->add(reinterpret_cast<TerritorialUnit*>(item->accessData()));
+		units->add(/*reinterpret_cast<TerritorialUnit*>*/(item->accessData()));
 	}
 	return units;
 }
