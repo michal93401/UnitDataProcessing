@@ -419,15 +419,16 @@ int UnitDataProcessing::convertUserInputToNumber(int max)
 Town* UnitDataProcessing::findCityByName(std::wstring name)
 {
     Town* town = data_->findCityByName(name);
-    if (town == nullptr) {
+    if (town != nullptr) {
         auto duplicates = data_->findCityDuplicates(name);
         if (!duplicates->isEmpty()) {
             duplicates->insert(town, 0);
             std::wcout << std::wstring{ L"Našlo sa viac obcí s daným názvom. Špecifikujte, ktorú ste hľadali." } << std::endl;
             for (int i = 0; i < duplicates->size(); i++) //i = 1 ?
             {
-                std::wcout << duplicates->at(i)->getHigherUnit()->getOfficialTitle() + std::wstring{ L" : " }
-                << duplicates->at(i)->getOfficialTitle() + std::wstring{ L" "} << duplicates->at(i)->getCode() << i + 1 << std::endl;
+                auto temp = duplicates->at(i);
+                std::wcout << duplicates->at(i)->getHigherUnit()->getOfficialTitle() << std::wstring{ L" : " };
+                std::wcout << duplicates->at(i)->getOfficialTitle() << std::wstring{ L" : "} << duplicates->at(i)->getCode() << std::wstring{ L" : " } << (i + 1) << std::endl;
             }
             int choice = convertUserInputToNumber(duplicates->size());
             return duplicates->at(choice - 1);
@@ -486,12 +487,12 @@ void UnitDataProcessing::userSort(structures::ArrayList<TerritorialUnit*>* units
         std::wcout << std::wstring{ L"Nič na triedenie! Neboli nájdené žiadne jednotky." } << std::endl;
     }
     else {
-        //auto quick = new structures::QuickSort<TerritorialUnit, ValueType>();
+        auto quick = new structures::QuickSort<TerritorialUnit, ValueType>();
         //auto sorterr = new Sorter<ValueType>(criteria);
         //sorterr->sort(units, vzostupne);
-        auto shell = new structures::ShellSort<TerritorialUnit, ValueType>();
-        //quick->sort(units, criteria, vzostupne);
-        shell->sort(units, criteria, vzostupne);
+        //auto shell = new structures::ShellSort<TerritorialUnit, ValueType>();
+        quick->sort(units, criteria, vzostupne);
+        //shell->sort(units, criteria, vzostupne);
     }
 }
 

@@ -78,6 +78,7 @@ bool Data::loadRegions(std::string& message_p)
 			newRegion->saveEducation(*education);
 			newRegion->saveAge(man, woman);
 			newRegion->setUnits(*units);
+			units->clear();
 		}
 		deleteContainer(titles);
 		deleteContainer(codes);
@@ -136,7 +137,7 @@ bool Data::loadDistricts(std::string& message_p)
 				}
 			}
 			for (auto item : *problemTowns_) {
-				if (*codes->at(i) == item->accessData()->getCode().substr(0, 5)) {
+				if (*codes->at(i) == item->accessData()->getCode().substr(0, 6)) {
 					item->accessData()->setHigherUnit(newDistrict);
 					units->insert(item->accessData()->getOfficialTitle(), item->accessData());
 					for (int j = 0; j < 8; j++) {
@@ -160,6 +161,7 @@ bool Data::loadDistricts(std::string& message_p)
 			newDistrict->saveEducation(*education);
 			newDistrict->saveAge(man, woman);
 			newDistrict->setUnits(*units);
+			units->clear();
 		}
 		deleteContainer(titles);
 		deleteContainer(codes);
@@ -246,6 +248,8 @@ bool Data::loadAgeGroups(std::string& message_p)
 			}
 
 			Town* town = nullptr;
+			index = title.find(L" (Okres");
+			title = title.substr(0, index);
 			if (towns_->tryFind(title, town)) {
 				if (town != nullptr && town->getCode() != code) {
 					for (auto item : *problemTowns_)
@@ -313,18 +317,20 @@ bool Data::loadEducation(std::string& message_p)
 			}
 			
 			Town* town = nullptr;
+			index = title.find(L" (Okres");
+			title = title.substr(0, index);
 			if (towns_->tryFind(title, town)) {
-				if (town != nullptr && town->getCode() != code) {
-					for (auto item : *problemTowns_)
-					{
-						//town = item->accessData()->getCode() == code ? item->accessData() : nullptr;
-						//town = nullptr;
-						if (item->accessData()->getCode() == code) {
-							town = item->accessData();
-							break;
+					if (town->getCode() != code) {
+						for (auto item : *problemTowns_)
+						{
+							//town = item->accessData()->getCode() == code ? item->accessData() : nullptr;
+							//town = nullptr;
+							if (item->accessData()->getCode() == code) {
+								town = item->accessData();
+								break;
+							}
 						}
 					}
-				}
 				town->saveEducation(*education);
 			}
 			delete education;
