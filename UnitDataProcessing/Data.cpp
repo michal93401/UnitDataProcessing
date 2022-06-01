@@ -45,9 +45,9 @@ bool Data::loadRegions(std::string& message_p)
 	auto codes = new structures::ArrayList<std::wstring*>();
 	auto notes = new structures::ArrayList<std::wstring*>();
 	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
-	auto education = new structures::Array<int>(8);
+	/*auto education = new structures::Array<int>(8);
 	structures::Array<int> man(101);
-	structures::Array<int> woman(101);
+	structures::Array<int> woman(101);*/
 	if (loadTerritorialUnits("../data/kraje.csv", titles, codes, notes)) {
 		/*for (size_t i = 0; i < titles->size(); i++)
 		{
@@ -57,6 +57,9 @@ bool Data::loadRegions(std::string& message_p)
 		for (int i = 0; i < titles->size(); i++)
 		{
 			auto newRegion = new Region(*titles->at(i), *codes->at(i), TerritorialUnitTypes::Region);
+			auto education = new structures::Array<int>(8);
+			auto man = new structures::Array<int>(101);
+			auto woman = new structures::Array<int>(101);
 			newRegion->setHigherUnit(State_);
 			regions_->insert(*titles->at(i), newRegion);
 			std::wstring comparedCode = notes->at(i)->substr(5, 5);
@@ -70,22 +73,25 @@ bool Data::loadRegions(std::string& message_p)
 					}
 
 					for (int j = 0; j < 101; j++) {
-						man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-						woman[j] += item->accessData()->getAge(j, Pohlavie::Woman);
+						man->at(j) += item->accessData()->getAge(j, Pohlavie::Man);
+						woman->at(j) += item->accessData()->getAge(j, Pohlavie::Woman);
 					}
 				}
 			}
 			newRegion->saveEducation(*education);
-			newRegion->saveAge(man, woman);
+			newRegion->saveAge(*man, *woman);
 			newRegion->setUnits(*units);
 			units->clear();
+			delete education;
+			delete man;
+			delete woman;
 		}
 		deleteContainer(titles);
 		deleteContainer(codes);
 		deleteContainer(notes);
 		delete units;
 		//units = nullptr;  
-		delete education;
+		//delete education;
 		return true;
 	}
 	else {
@@ -94,7 +100,7 @@ bool Data::loadRegions(std::string& message_p)
 		deleteContainer(codes);
 		deleteContainer(notes);
 		delete units;//units = nullptr; 
-		delete education;
+		//delete education;
 		return false;
 	}
 }
@@ -104,13 +110,16 @@ bool Data::loadDistricts(std::string& message_p)
 	auto titles = new structures::ArrayList<std::wstring*>();
 	auto codes = new structures::ArrayList<std::wstring*>();
 	auto units = new structures::SortedSequenceTable<std::wstring, TerritorialUnit*>;
-	auto education = new structures::Array<int>(8);
+	/*auto education = new structures::Array<int>(8);
 	structures::Array<int> man(101);
-	structures::Array<int> woman(101);
+	structures::Array<int> woman(101);*/
 	if (loadTerritorialUnits("../data/okresy.csv", titles, codes, nullptr)) {
 		for (int i = 0; i < titles->size() - 1; i++)
 		{
 			auto newDistrict = new District(*titles->at(i), *codes->at(i), TerritorialUnitTypes::District);
+			auto education = new structures::Array<int>(8);
+			auto man = new structures::Array<int>(101);
+			auto woman = new structures::Array<int>(101);
 			districts_->insert(*titles->at(i), newDistrict);
 			std::wstring comparedcode = *codes->at(i);
 			for (auto item : *towns_) {
@@ -131,8 +140,8 @@ bool Data::loadDistricts(std::string& message_p)
 					}
 
 					for (int j = 0; j < 101; j++) {
-						man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-						woman[j] += item->accessData()->getAge(j, Pohlavie::Woman);
+						man->at(j) += item->accessData()->getAge(j, Pohlavie::Man);
+						woman->at(j) += item->accessData()->getAge(j, Pohlavie::Woman);
 					}
 				}
 			}
@@ -153,20 +162,23 @@ bool Data::loadDistricts(std::string& message_p)
 					}
 
 					for (int j = 0; j < 101; j++) {
-						man[j] += item->accessData()->getAge(j, Pohlavie::Man);
-						woman[j] += item->accessData()->getAge(j, Pohlavie::Woman);
+						man->at(j) += item->accessData()->getAge(j, Pohlavie::Man);
+						woman->at(j) += item->accessData()->getAge(j, Pohlavie::Woman);
 					}
 				}
 			}
 			newDistrict->saveEducation(*education);
-			newDistrict->saveAge(man, woman);
+			newDistrict->saveAge(*man, *woman);
 			newDistrict->setUnits(*units);
 			units->clear();
+			delete education;
+			delete man;
+			delete woman;
 		}
 		deleteContainer(titles);
 		deleteContainer(codes);
 		delete units; // units = nullptr;
-		delete education;
+		//delete education;
 		return true;
 	}
 	else {
@@ -174,7 +186,7 @@ bool Data::loadDistricts(std::string& message_p)
 		deleteContainer(titles);
 		deleteContainer(codes);
 		delete units; // units = nullptr;
-		delete education;
+		//delete education;
 		return false;
 	}
 }

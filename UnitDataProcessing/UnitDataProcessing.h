@@ -43,7 +43,7 @@ private:
 	void searchUsingMadeFilter();
 	int convertUserInputToNumber(int max);
 	Town* findCityByName(std::wstring name);
-	void writeUnitInfo(TerritorialUnit* unit);
+	void writeUnitInfo(TerritorialUnit* unit, bool percentualy);
 private:
 	Data* data_;
 	bool loaded_;

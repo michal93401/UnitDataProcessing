@@ -1,5 +1,11 @@
 ﻿#include "UnitDataProcessing.h"
 
+
+
+/// <summary>
+/// skus vyfiltrovany filtrovany prefiltreny kontajner zmenit z eeeeerejlistu na linked list
+/// </summary>
+
 UnitDataProcessing::UnitDataProcessing()
 {
 	data_ = new Data();
@@ -121,7 +127,7 @@ void UnitDataProcessing::searchByName()
         unit = data_->findUnitByName(type, name);
     }
     if (unit != nullptr) {
-        writeUnitInfo(unit);
+        writeUnitInfo(unit, false);
     }
     else {
         std::wcout << std::wstring{ L"Táto územná jednotka nebola nájdená." } << std::endl;
@@ -151,8 +157,8 @@ void UnitDataProcessing::searchMakingFilter()
         type1 = TerritorialUnitTypes(convertUserInputToNumber(int(TerritorialUnitTypes::Town)));
         auto criterium = new CriteriaTerritorialUnitType();
         auto filter = new Filter_TypeEquals<TerritorialUnit, TerritorialUnitTypes>(criterium, type1);
-        //filteredContainer = data_->getFilteredUnits(*filter, type1);
-        filters->registerFilter(filter);
+        filteredContainer = data_->getFilteredUnits(*filter, type1);
+        //filters->registerFilter(filter);
         //criterium = nullptr;
         //delete filter;
     }
@@ -244,8 +250,8 @@ void UnitDataProcessing::searchMakingFilter()
     std::wcout << std::wstring{ L"Použiť filter UJVzdelaniePodiel? [Y/N]" } << std::endl;
     contin = getUserRequest();
     bool ujeduportion = contin == std::wstring{ L"n" } || contin == std::wstring{ L"N" } ? false : true;
-    int minportion = -1;
-    int maxportion = -1;
+    double minportion = -1;
+    double maxportion = -1;
     if (ujeduportion) {
         for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
         {
@@ -255,7 +261,7 @@ void UnitDataProcessing::searchMakingFilter()
         std::wcout << std::wstring{ L"Min percentualny počet: [-1 ak nechcete špecifikovať]" };
         try
         {
-            minportion = std::stoi(getUserRequest());
+            minportion = std::stod(getUserRequest());
         }
         catch (const std::exception&)
         {
@@ -264,29 +270,29 @@ void UnitDataProcessing::searchMakingFilter()
         std::wcout << std::wstring{ L"Max percentualny počet: [-1 ak nechcete špecifikovať]" };
         try
         {
-            maxportion = std::stoi(getUserRequest());
+            maxportion = std::stod(getUserRequest());
         }
         catch (const std::exception&)
         {
             maxportion = -1;
         }
-        auto criterium = new CriteriaTerritorialUnitEducationPortion(education1);
-        if (mincount != -1 && maxcount != -1) {
-            auto filter = new Filter_Range<TerritorialUnit, double>(criterium, mincount, maxcount);
+        auto criterium = new CriteriaTerritorialUnitEducationPortion(education2);
+        if (minportion != -1 && maxportion != -1) {
+            auto filter = new Filter_Range<TerritorialUnit, double>(criterium, minportion, maxportion);
             //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
             //criterium = nullptr;
             //delete filter;
         }
-        if (mincount != -1 && maxcount == -1) {
-            auto filter = new Filter_TypeMore<TerritorialUnit, double>(criterium, mincount);
+        if (minportion != -1 && maxportion == -1) {
+            auto filter = new Filter_TypeMore<TerritorialUnit, double>(criterium, minportion);
             //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
             //criterium = nullptr;
             //delete filter;
         }
-        if (mincount == -1 && maxcount != -1) {
-            auto filter = new Filter_TypeLess<TerritorialUnit, double>(criterium, maxcount);
+        if (minportion == -1 && maxportion != -1) {
+            auto filter = new Filter_TypeLess<TerritorialUnit, double>(criterium, maxportion);
             //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
             //criterium = nullptr;
@@ -317,18 +323,35 @@ void UnitDataProcessing::searchMakingFilter()
             auto criteria = new CriteriaTerritorialUnitName();
             userSort<TerritorialUnit, std::wstring>(filteredContainer, criteria, vzostupne);
             delete criteria;
+            break;
         }
         case 2:
         {
+            if (!ujeducount) {
+                for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
+                {
+                    std::wcout << educationToString(Education(i)) << std::wstring{ L": " } << i << std::endl;
+                }
+                education1 = Education(convertUserInputToNumber(int(Education::NEZISTENE)));
+            }
             auto criteria = new CriteriaTerritorialUnitEducationCount(education1);
             userSort<TerritorialUnit, int>(filteredContainer, criteria, vzostupne);
             delete criteria;
+            break;
         }
         case 3:
         {
+            if (!ujeduportion) {
+                for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
+                {
+                    std::wcout << educationToString(Education(i)) << std::wstring{ L": " } << i << std::endl;
+                }
+                education2 = Education(convertUserInputToNumber(int(Education::NEZISTENE)));
+            }
             auto criteria = new CriteriaTerritorialUnitEducationPortion(education2);
             userSort<TerritorialUnit, double>(filteredContainer, criteria, vzostupne);
             delete criteria;
+            break;
         }
         default:
             break;
@@ -343,7 +366,7 @@ void UnitDataProcessing::searchMakingFilter()
     for (size_t i = 0; i < filteredContainer->size(); i++)
     {
         std::wcout << std::wstring{ L"-------------------------------------------------------" } << std::endl;
-        writeUnitInfo(filteredContainer->at(i));
+        writeUnitInfo(filteredContainer->at(i), sortNumber == 3);
     }
     delete filters;
     contin.~basic_string();
@@ -379,7 +402,7 @@ void UnitDataProcessing::searchUsingMadeFilter()
     case 1:
     {
         auto town = findCityByName(std::wstring{ L"Frička" });
-        writeUnitInfo(town);
+        writeUnitInfo(town, false);
         town = nullptr;
         break;
     }
@@ -443,14 +466,24 @@ Town* UnitDataProcessing::findCityByName(std::wstring name)
     return town;
 }
 
-void UnitDataProcessing::writeUnitInfo(TerritorialUnit* unit)
+void UnitDataProcessing::writeUnitInfo(TerritorialUnit* unit, bool percentualy)
 {
     std::wcout << unitTypeToString(unit->getType()) << std::wstring{ L": " } << unit->getOfficialTitle() << std::wstring{ L" " } << unit->getCode() << std::endl;
     std::wcout << std::wstring{ L"Štatistika o vzdelaní: " } << std::endl;
-    for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
-    {
-        std::wcout << educationToString(Education(i)) + std::wstring{ L": " } << unit->getEducation(Education(i)) << std::endl;
+    if (!percentualy) {
+        for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
+        {
+            std::wcout << educationToString(Education(i)) + std::wstring{ L": " } << unit->getEducation(Education(i)) << std::endl;
+        }
     }
+    else {
+        for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
+        {
+            double percent = unit->getPeopleCount() == 0 ? 0 : (static_cast<double>(unit->getEducation(Education(i))) / static_cast<double>(unit->getPeopleCount()) * 100);
+            std::wcout << educationToString(Education(i)) + std::wstring{ L": " } << percent << std::endl;
+        }
+    }
+    
     std::wcout << unit->getOfficialTitle() << std::wstring{ L" - Patrí do vyššieho celku: " } << std::endl;
     auto parent = unit->getHigherUnit();
     while (parent != nullptr) {
