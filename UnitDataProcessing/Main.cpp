@@ -5,13 +5,13 @@
 
 int main()
 {
-    //initHeapMonitor();
+    initHeapMonitor();
     std::wcout << "Hello World!\n";
-    UnitDataProcessing* processApp = new UnitDataProcessing;
+    UnitDataProcessing* processApp = new UnitDataProcessing();
     processApp->load();
     processApp->start();
 
     delete processApp;
-    _CrtDumpMemoryLeaks;
+    //_CrtDumpMemoryLeaks;
     return 0;
 }

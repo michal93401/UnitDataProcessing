@@ -17,13 +17,9 @@ public:
 	Data() = default;
 	~Data();
 	bool loadData(std::string& message_p);
-	void print();
 	TerritorialUnit* findUnitByName(TerritorialUnitTypes type, std::wstring& name);
 	Town* findCityByName(std::wstring& name);
 	structures::ArrayList<Town*>* findCityDuplicates(std::wstring& name);
-
-	//template<typename ObjectType, typename ValueType>
-	//structures::ArrayList<TerritorialUnit*>* getFilteredUnits(Filter_Type<ObjectType, ValueType>& filter, TerritorialUnitTypes type);
 	structures::ArrayList<TerritorialUnit*>* getFilteredUnits(Filter<TerritorialUnit>& filter, TerritorialUnitTypes type);
 	structures::ArrayList<TerritorialUnit*>* getAllUnits();
 

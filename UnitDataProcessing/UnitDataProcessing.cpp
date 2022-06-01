@@ -1,11 +1,5 @@
 ﻿#include "UnitDataProcessing.h"
 
-
-
-/// <summary>
-/// skus vyfiltrovany filtrovany prefiltreny kontajner zmenit z eeeeerejlistu na linked list
-/// </summary>
-
 UnitDataProcessing::UnitDataProcessing()
 {
 	data_ = new Data();
@@ -75,7 +69,6 @@ void UnitDataProcessing::start()
 std::wstring UnitDataProcessing::getUserRequest()
 {
     std::wstring row;
-    //std::wcin >> row;
     _setmode(_fileno(stdin), _O_U16TEXT);
     std::getline(std::wcin, row);
     return row;
@@ -132,6 +125,7 @@ void UnitDataProcessing::searchByName()
     else {
         std::wcout << std::wstring{ L"Táto územná jednotka nebola nájdená." } << std::endl;
     }
+    unit = nullptr;
 }
 
 void UnitDataProcessing::searchMakingFilter()
@@ -143,7 +137,8 @@ void UnitDataProcessing::searchMakingFilter()
     Education education1 = Education(0);
     Education education2 = Education(0);
     auto filters = new Filter_CompositeAND();
-    auto filteredContainer = data_->getAllUnits();
+    auto filteredContainer = new structures::ArrayList<TerritorialUnit*>();
+    //auto filteredContainer = data_->getAllUnits();
 
     std::wcout << std::wstring{ L"Použiť filter UJTyp? [Y/N]" } << std::endl;
     contin = getUserRequest();
@@ -158,22 +153,17 @@ void UnitDataProcessing::searchMakingFilter()
         auto criterium = new CriteriaTerritorialUnitType();
         auto filter = new Filter_TypeEquals<TerritorialUnit, TerritorialUnitTypes>(criterium, type1);
         filteredContainer = data_->getFilteredUnits(*filter, type1);
-        //filters->registerFilter(filter);
-        //criterium = nullptr;
-        //delete filter;
     }
 
     std::wcout << std::wstring{ L"Použiť filter UJPríslušnosť? [Y/N]" } << std::endl;
     contin = getUserRequest();
     bool ujaffil = contin == std::wstring{ L"n" } || contin == std::wstring{ L"N" } ? false : true;
     if (ujaffil) {
-        //if (type == TerritorialUnitTypes(-1)) {
             for (int i = 0; i <= int(TerritorialUnitTypes::Town); i++)
             {
                 std::wcout << unitTypeToString(TerritorialUnitTypes(i)) << std::wstring{ L" : " } << i << std::endl;
             }
             type2 = TerritorialUnitTypes(convertUserInputToNumber(int(TerritorialUnitTypes::Town)));
-        //}
         std::wcout << std::wstring{ L"\nZadajte meno vybranej jednotky : " } << std::endl;
         auto name = getUserRequest();
         TerritorialUnit* unit = nullptr;
@@ -188,10 +178,7 @@ void UnitDataProcessing::searchMakingFilter()
         }
         auto criterium = new CriteriaTerritorialUnitAffiliation(*unit);
         auto filter = new Filter_CriteriaAffi(criterium);
-        //filteredContainer = filterOnContainer(*filter, filteredContainer);
         filters->registerFilter(filter);
-        //criterium = nullptr;
-        //delete filter;
     }
 
     std::wcout << std::wstring{ L"Použiť filter UJVzdelaniePočet? [Y/N]" } << std::endl;
@@ -226,24 +213,15 @@ void UnitDataProcessing::searchMakingFilter()
         auto criterium = new CriteriaTerritorialUnitEducationCount(education1);
         if (mincount != -1 && maxcount != -1) {
             auto filter = new Filter_Range<TerritorialUnit, int>(criterium, mincount, maxcount);
-            //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
-            //criterium = nullptr;
-            //delete filter;
         }
         if (mincount != -1 && maxcount == -1) {
             auto filter = new Filter_TypeMore<TerritorialUnit, int>(criterium, mincount);
-            //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
-            //criterium = nullptr;
-            //delete filter;
         }
         if (mincount == -1 && maxcount != -1) {
             auto filter = new Filter_TypeLess<TerritorialUnit, int>(criterium, maxcount);
-            //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
-            //criterium = nullptr;
-            //delete filter;
         }
     }
 
@@ -253,7 +231,7 @@ void UnitDataProcessing::searchMakingFilter()
     double minportion = -1;
     double maxportion = -1;
     if (ujeduportion) {
-        for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
+        for (int i = 0; i <= int(Education::NEZISTENE); i++)
         {
             std::wcout << educationToString(Education(i)) << std::wstring{ L": " } << i << std::endl;
         }
@@ -279,24 +257,15 @@ void UnitDataProcessing::searchMakingFilter()
         auto criterium = new CriteriaTerritorialUnitEducationPortion(education2);
         if (minportion != -1 && maxportion != -1) {
             auto filter = new Filter_Range<TerritorialUnit, double>(criterium, minportion, maxportion);
-            //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
-            //criterium = nullptr;
-            //delete filter;
         }
         if (minportion != -1 && maxportion == -1) {
             auto filter = new Filter_TypeMore<TerritorialUnit, double>(criterium, minportion);
-            //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
-            //criterium = nullptr;
-            //delete filter;
         }
         if (minportion == -1 && maxportion != -1) {
             auto filter = new Filter_TypeLess<TerritorialUnit, double>(criterium, maxportion);
-            //filteredContainer = filterOnContainer(*filter, filteredContainer);
             filters->registerFilter(filter);
-            //criterium = nullptr;
-            //delete filter;
         }
     }
 
@@ -358,11 +327,6 @@ void UnitDataProcessing::searchMakingFilter()
         }
     }
 
-    /*for (auto item : *filteredContainer) {
-        std::wcout << std::wstring{ L"-------------------------------------------------------" } << std::endl;
-        writeUnitInfo(item);
-    }*/
-
     for (size_t i = 0; i < filteredContainer->size(); i++)
     {
         std::wcout << std::wstring{ L"-------------------------------------------------------" } << std::endl;
@@ -406,15 +370,6 @@ void UnitDataProcessing::searchUsingMadeFilter()
         town = nullptr;
         break;
     }
-    case 2:
-    {
-        auto criteria = getCriteriaEduCount(Education::VYSOKE);
-        auto filter = new Filter_TypeEqualMore<TerritorialUnit, int>(criteria, 3000);
-        filteredUnits = data_->getFilteredUnits(*filter, TerritorialUnitTypes::Town);
-        delete criteria;
-        delete filter;
-        break;
-    }
     default:
         break;
     }
@@ -435,7 +390,7 @@ int UnitDataProcessing::convertUserInputToNumber(int max)
             std::wcout << std::wstring{ L"Nepodporovaný vstup! Zvolte jedno z ponúkaných čísiel." } << std::endl;
             action = 0;
         }
-        if (action > 0 && action <= max) {
+        if (action >= 0 && action <= max) {
             break;
         }
         else {
@@ -453,14 +408,14 @@ Town* UnitDataProcessing::findCityByName(std::wstring name)
         if (!duplicates->isEmpty()) {
             duplicates->insert(town, 0);
             std::wcout << std::wstring{ L"Našlo sa viac obcí s daným názvom. Špecifikujte, ktorú ste hľadali." } << std::endl;
-            for (int i = 0; i < duplicates->size(); i++) //i = 1 ?
+            for (int i = 0; i < duplicates->size(); i++)
             {
-                auto temp = duplicates->at(i);
                 std::wcout << duplicates->at(i)->getHigherUnit()->getOfficialTitle() << std::wstring{ L" : " };
                 std::wcout << duplicates->at(i)->getOfficialTitle() << std::wstring{ L" : "} << duplicates->at(i)->getCode() << std::wstring{ L" : " } << (i + 1) << std::endl;
             }
             int choice = convertUserInputToNumber(duplicates->size());
-            return duplicates->at(choice - 1);
+            town = duplicates->at(choice - 1);
+            return town;
         }
     }
     return town;
@@ -471,13 +426,13 @@ void UnitDataProcessing::writeUnitInfo(TerritorialUnit* unit, bool percentualy)
     std::wcout << unitTypeToString(unit->getType()) << std::wstring{ L": " } << unit->getOfficialTitle() << std::wstring{ L" " } << unit->getCode() << std::endl;
     std::wcout << std::wstring{ L"Štatistika o vzdelaní: " } << std::endl;
     if (!percentualy) {
-        for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
+        for (int i = 0; i <= int(Education::NEZISTENE); i++)
         {
             std::wcout << educationToString(Education(i)) + std::wstring{ L": " } << unit->getEducation(Education(i)) << std::endl;
         }
     }
     else {
-        for (int i = 0; i <= int(Education::NEZISTENE); i++) // i = 1?
+        for (int i = 0; i <= int(Education::NEZISTENE); i++)
         {
             double percent = unit->getPeopleCount() == 0 ? 0 : (static_cast<double>(unit->getEducation(Education(i))) / static_cast<double>(unit->getPeopleCount()) * 100);
             std::wcout << educationToString(Education(i)) + std::wstring{ L": " } << percent << std::endl;
@@ -490,23 +445,7 @@ void UnitDataProcessing::writeUnitInfo(TerritorialUnit* unit, bool percentualy)
         std::wcout << unitTypeToString(parent->getType()) << std::wstring{ L": " } << parent->getOfficialTitle() << std::endl;
         parent = parent->getHigherUnit();
     }
-}
-
-CriteriaTerritorialUnitAffiliation* UnitDataProcessing::getCriteriaAff(TerritorialUnit& unit)
-{
-    return new CriteriaTerritorialUnitAffiliation(unit);
-}
-CriteriaTerritorialUnitEducationCount* UnitDataProcessing::getCriteriaEduCount(Education education) {
-    return new CriteriaTerritorialUnitEducationCount(education);
-}
-CriteriaTerritorialUnitEducationPortion* UnitDataProcessing::getCriteriaEduPortion(Education education) {
-    return new CriteriaTerritorialUnitEducationPortion(education);
-}
-CriteriaTerritorialUnitName* UnitDataProcessing::getCriteriaName() {
-    return new CriteriaTerritorialUnitName();
-}
-CriteriaTerritorialUnitType* UnitDataProcessing::getCriteriaType() {
-    return new CriteriaTerritorialUnitType();
+    parent = nullptr;
 }
 
 structures::ArrayList<TerritorialUnit*>* UnitDataProcessing::filterOnContainer(Filter<TerritorialUnit>& filter, structures::ArrayList<TerritorialUnit*>* units) {
@@ -534,28 +473,6 @@ void UnitDataProcessing::userSort(structures::ArrayList<TerritorialUnit*>* units
         //shell->sort(units, criteria, vzostupne);
     }
 }
-
-//template<typename ResultType>
-//CriteriaTerritorialUnit<ResultType>* UnitDataProcessing::getCriteriaByType(int type, TerritorialUnit& unit, Education education) {
-//    /*if (type == -1) {
-//        std::wcout << std::wstring{ L"Critérium príslušnosť" } << 1 << std::endl;
-//        std::wcout << std::wstring{ L"Critérium počtu ľudí so vzdelaním" } << 2 << std::endl;
-//        std::wcout << std::wstring{ L"Critérium podielu ľudí so vzdelaním" } << 3 << std::endl;
-//        std::wcout << std::wstring{ L"Critérium meno" } << 4 << std::endl;
-//        std::wcout << std::wstring{ L"Critérium typ" } << 5 << std::endl;
-//        type = convertUserInputToNumber(5);
-//    }*/
-//    switch (type)
-//    {
-//    case 1:
-//    {
-//        auto c1 = new CriteriaTerritorialUnitAffiliation(unit);
-//        return c1;
-//    }
-//    default:
-//        break;
-//    }
-//}
 
 std::wstring educationToString(Education type) {
     switch (type) {

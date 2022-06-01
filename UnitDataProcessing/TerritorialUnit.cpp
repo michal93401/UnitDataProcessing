@@ -54,7 +54,6 @@ structures::SortedSequenceTable<std::wstring, TerritorialUnit*>* TerritorialUnit
 
 void TerritorialUnit::setUnits(structures::SortedSequenceTable<std::wstring, TerritorialUnit*>& newUnits)
 {
-	//Units_ = &newUnits;
 	Units_->assign(newUnits);
 }
 

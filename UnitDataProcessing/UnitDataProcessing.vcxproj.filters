@@ -22,9 +22,6 @@
     <Filter Include="Header Files\Filters">
       <UniqueIdentifier>{a784d38f-8ca7-4568-bfd8-b5d2c3f4d6da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\SelectionCriterias">
-      <UniqueIdentifier>{805cea70-28c5-4afc-b7e1-ad423e812ae0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Data">
       <UniqueIdentifier>{708446be-53b3-4ae6-bedd-ac03f8d4e28c}</UniqueIdentifier>
     </Filter>
@@ -98,9 +95,6 @@
     <ClInclude Include="Filter_Type.h">
       <Filter>Header Files\Filters</Filter>
     </ClInclude>
-    <ClInclude Include="SelectionCriteria.h">
-      <Filter>Header Files\SelectionCriterias</Filter>
-    </ClInclude>
     <ClInclude Include="Data.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
@@ -151,15 +145,6 @@
     </ClInclude>
     <ClInclude Include="UnitDataProcessing.h">
       <Filter>Header Files\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="ParametricCriteria.h">
-      <Filter>Header Files\Criterias</Filter>
-    </ClInclude>
-    <ClInclude Include="ParametricCriteriaTerritorialUnit.h">
-      <Filter>Header Files\Criterias</Filter>
-    </ClInclude>
-    <ClInclude Include="ParametricCriteriaTerritorialUnitEducationCount.h">
-      <Filter>Header Files\Criterias</Filter>
     </ClInclude>
     <ClInclude Include="Filter_TypeEquals.h">
       <Filter>Header Files\Filters</Filter>

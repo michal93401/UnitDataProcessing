@@ -26,12 +26,6 @@ enum class TerritorialUnitTypes {
 	Town
 };
 
-enum EVS {
-	PreProductive,
-	Productive,
-	PostProductive
-};
-
 enum class Pohlavie {
 	Man,
 	Woman

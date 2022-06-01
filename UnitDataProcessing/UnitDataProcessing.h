@@ -49,15 +49,8 @@ private:
 	bool loaded_;
 	bool run_;
 private:
-	CriteriaTerritorialUnitAffiliation* getCriteriaAff(TerritorialUnit& unit);
-	CriteriaTerritorialUnitEducationCount* getCriteriaEduCount(Education education);
-	CriteriaTerritorialUnitEducationPortion* getCriteriaEduPortion(Education education);
-	CriteriaTerritorialUnitName* getCriteriaName();
-	CriteriaTerritorialUnitType* getCriteriaType();
 	structures::ArrayList<TerritorialUnit*>* filterOnContainer(Filter<TerritorialUnit>& filter, structures::ArrayList<TerritorialUnit*>* units);
 
 	template<typename T, typename ValueType>
 	void userSort(structures::ArrayList<TerritorialUnit*>* units, CriteriaTerritorialUnit<ValueType>* criteria, bool vzostupne);
-//	template<typename ResultType>
-//	CriteriaTerritorialUnit<ResultType>* getCriteriaByType(int type, TerritorialUnit& unit, Education education);
 };
